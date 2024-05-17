@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LoginUserRequest;
-use App\Http\Requests\SignupUserRequest;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Auth\LoginUserRequest;
+use App\Http\Requests\Auth\SignupUserRequest;
 
 class AuthController extends Controller
 {
@@ -15,12 +14,12 @@ class AuthController extends Controller
         try {
             $user = User::create($request->validated());
             $token = $user->createToken("auth_token")->plainTextToken;
-            return response()->json([
+            return response([
                 'token' => $token
             ], 201);
         } catch (\Throwable $th) {
-            return response()->json([
-                'Internal Server Error' => $th->getMessage()
+            return response([
+                'error' => 'Failed to signup. Please try later.'
             ], 500);
         }
     }
@@ -28,19 +27,19 @@ class AuthController extends Controller
     public function login(LoginUserRequest $request)
     {
         try {
-            if (!Auth::attempt($request->only(['email', 'password']))) {
-                return response()->json([
+            if (!auth()->attempt($request->only(['email', 'password']))) {
+                return response([
                     'error' => 'Email or password does not match the record'
                 ], 401);
             }
             $user = User::where('email', $request->email)->first();
             $token = $user->createToken("auth_token")->plainTextToken;
-            return response()->json([
+            return response([
                 'token' => $token
             ], 200);
         } catch (\Throwable $th) {
-            return response()->json([
-                'Internal Server Error' => $th->getMessage()
+            return response([
+                'error' => 'Failed to login. Please try later.'
             ], 500);
         }
     }
@@ -48,13 +47,12 @@ class AuthController extends Controller
     public function getUser()
     {
         try {
-            $user = auth()->user();
-            return response()->json([
-                'id' => $user->id
+            return response([
+                'id' => auth()->user()->id
             ], 200);
         } catch (\Throwable $th) {
-            return response()->json([
-                'Internal Server Error' => $th->getMessage()
+            return response([
+                'error' => 'Failed to get user. Please try later.'
             ], 500);
         }
     }
@@ -63,12 +61,12 @@ class AuthController extends Controller
     {
         try {
             auth()->user()->tokens()->delete();
-            return response()->json([
+            return response([
                 'message' => 'Logged out successfully'
             ], 200);
         } catch (\Throwable $th) {
-            return response()->json([
-                'Internal Server Error' => $th->getMessage()
+            return response([
+                'error' => 'Failed to logout. Please try later.'
             ], 500);
         }
     }

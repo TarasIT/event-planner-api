@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Events;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SignupUserRequest extends FormRequest
+class StoreEventRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,13 +19,17 @@ class SignupUserRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|unique:users,email',
-            'password' => 'required|string|min:8'
+            'title' => 'required|string|max:255',
+            'description' => 'string|max:255',
+            'date' => 'required|string',
+            'time' => 'required|string',
+            'location' => 'string|max:255',
+            'category' => 'string|max:255',
+            'picture' => 'string|max:255',
+            'priority' => 'string|max:255'
         ];
     }
 }
