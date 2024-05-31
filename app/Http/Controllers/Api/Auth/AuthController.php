@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Auth;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginUserRequest;
 use App\Http\Requests\Auth\SignupUserRequest;
+use App\Models\Event;
 
 class AuthController extends Controller
 {
@@ -67,6 +68,21 @@ class AuthController extends Controller
         } catch (\Throwable $th) {
             return response([
                 'error' => 'Failed to logout. Please try later.'
+            ], 500);
+        }
+    }
+
+    public function deleteUser()
+    {
+        try {
+            $userId = auth()->user()->id;
+            $user = User::findOrFail($userId);
+            Event::where('user_id', $userId)->delete();
+            $user->delete();
+            return response(['message' => 'Your profile and all events deleted successfully'], 200);
+        } catch (\Throwable $th) {
+            return response([
+                'error' => 'Failed to delete user profile. Please try later.'
             ], 500);
         }
     }
