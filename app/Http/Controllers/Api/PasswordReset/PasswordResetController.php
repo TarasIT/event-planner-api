@@ -15,32 +15,44 @@ class PasswordResetController extends Controller
 {
     public function sendResetLinkEmail(SendResetLinkRequest $request)
     {
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
+        try {
+            $status = Password::sendResetLink(
+                $request->only('email')
+            );
 
-        return $status === Password::RESET_LINK_SENT
-            ? response(['message' => __($status)], 200)
-            : response(['email' => __($status)], 400);
+            return $status === Password::RESET_LINK_SENT
+                ? response(['message' => __($status)], 200)
+                : response(['email' => __($status)], 400);
+        } catch (\Throwable $th) {
+            return response([
+                'error' => 'Failed send reset link. Please try later.'
+            ], 500);
+        }
     }
 
     public function reset(ResetPasswordRequest $request)
     {
-        $status = Password::reset(
-            $request->only('email', 'password', 'password_confirmation', 'token'),
-            function (User $user, string $password) {
-                $user->forceFill([
-                    'password' => Hash::make($password),
-                ])->setRememberToken(Str::random(60));
+        try {
+            $status = Password::reset(
+                $request->only('email', 'password', 'password_confirmation', 'token'),
+                function (User $user, string $password) {
+                    $user->forceFill([
+                        'password' => Hash::make($password),
+                    ])->setRememberToken(Str::random(60));
 
-                $user->save();
+                    $user->save();
 
-                event(new PasswordReset($user));
-            }
-        );
+                    event(new PasswordReset($user));
+                }
+            );
 
-        return $status === Password::PASSWORD_RESET
-            ? response(['message' => __($status)], 200)
-            : response(['email' => [__($status)]], 400);
+            return $status === Password::PASSWORD_RESET
+                ? response(['message' => __($status)], 200)
+                : response(['email' => [__($status)]], 400);
+        } catch (\Throwable $th) {
+            return response([
+                'error' => 'Failed reset password. Please try later.'
+            ], 500);
+        }
     }
 }

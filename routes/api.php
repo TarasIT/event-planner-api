@@ -2,13 +2,14 @@
 
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Auth\GoogleAuthController;
+use App\Http\Controllers\Api\EmailVerification\EmailVerificationController;
 use App\Http\Controllers\Api\Event\EventController;
 use App\Http\Controllers\Api\PasswordReset\PasswordResetController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('users/auth')->group(function () {
     Route::post('/signup', [AuthController::class, 'signup']);
-    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/login', [AuthController::class, 'login'])->middleware('emailVerified');
 });
 
 Route::prefix('auth/google')->group(function () {
@@ -21,14 +22,24 @@ Route::middleware('guest')->group(function () {
         '/forgot-password',
         [PasswordResetController::class, 'sendResetLinkEmail']
     )->name('password.email');
-
     Route::post(
         '/reset-password',
         [PasswordResetController::class, 'reset']
     )->name('password.update');
 });
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::group([], function () {
+    Route::get(
+        '/email/verify/{id}',
+        [EmailVerificationController::class, 'verify']
+    )->name('verification.verify');
+    Route::post(
+        '/email/resend',
+        [EmailVerificationController::class, 'resendEmail']
+    )->name('verification.resend');
+});
+
+Route::middleware(['auth:sanctum', 'emailVerified'])->group(function () {
     Route::prefix('users')->group(function () {
         Route::post('/auth/logout', [AuthController::class, 'logout']);
         Route::get('/current', [AuthController::class, 'getUser']);

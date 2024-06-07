@@ -13,11 +13,11 @@ class AuthController extends Controller
     public function signup(SignupUserRequest $request)
     {
         try {
-            $user = User::create($request->validated());
-            $token = $user->createToken("auth_token")->plainTextToken;
-            return response([
-                'token' => $token
-            ], 201);
+            User::create($request->validated())->sendEmailVerificationNotification();
+            return response(
+                ['message' => 'Registration successful. Please check your email to verify your account.'],
+                201
+            );
         } catch (\Throwable $th) {
             return response([
                 'error' => 'Failed to signup. Please try later.'
@@ -28,16 +28,17 @@ class AuthController extends Controller
     public function login(LoginUserRequest $request)
     {
         try {
+            $user = User::where('email', $request->email)->first();
+            if (!$user) {
+                return response(['error' => 'User not found'], 404);
+            }
             if (!auth()->attempt($request->only(['email', 'password']))) {
                 return response([
                     'error' => 'Email or password does not match the record'
                 ], 401);
             }
-            $user = User::where('email', $request->email)->first();
             $token = $user->createToken("auth_token")->plainTextToken;
-            return response([
-                'token' => $token
-            ], 200);
+            return response(['token' => $token], 200);
         } catch (\Throwable $th) {
             return response([
                 'error' => 'Failed to login. Please try later.'
