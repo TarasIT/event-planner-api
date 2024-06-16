@@ -22,14 +22,14 @@ class StoreEventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:50',
             'description' => 'string|max:255',
             'date' => 'required|string',
             'time' => 'required|string',
-            'location' => 'string|max:255',
-            'category' => 'string|max:255',
-            'picture' => 'string|max:255',
-            'priority' => 'string|max:255'
+            'location' => 'string|max:50',
+            'category' => 'string|max:50',
+            'picture' => 'image|mimes:jpeg,png,jpg,avif,gif,svg|max:20',
+            'priority' => 'string|in:low,medium,high'
         ];
     }
 }

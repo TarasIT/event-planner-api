@@ -46,6 +46,6 @@ Route::middleware(['auth:sanctum', 'emailVerified'])->group(function () {
         Route::delete('/current', [AuthController::class, 'deleteUser']);
     });
 
-    Route::apiResource('events', EventController::class);
+    Route::apiResource('events', EventController::class)->middleware('pictureDecoded');
     Route::delete('events', [EventController::class, 'destroyAll']);
 });

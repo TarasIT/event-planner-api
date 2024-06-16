@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\CheckEmailIsVerified;
+use App\Http\Middleware\DecodeBase64Picture;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -13,7 +14,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->alias(['emailVerified' => CheckEmailIsVerified::class]);
+        $middleware->alias(
+            [
+                'emailVerified' => CheckEmailIsVerified::class,
+                'pictureDecoded' => DecodeBase64Picture::class
+            ]
+        );
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

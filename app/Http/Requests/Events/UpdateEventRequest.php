@@ -22,14 +22,14 @@ class UpdateEventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'string|max:255',
+            'title' => 'string|max:50',
             'description' => 'string|max:255',
             'date' => 'string',
             'time' => 'string',
-            'location' => 'string|max:255',
-            'category' => 'string|max:255',
-            'picture' => 'string|max:255',
-            'priority' => 'string|max:255'
+            'location' => 'string|max:50',
+            'category' => 'string|max:50',
+            'picture' => 'string',
+            'priority' => 'string|in:low,medium,high'
         ];
     }
 }
