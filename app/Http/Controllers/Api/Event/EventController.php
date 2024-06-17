@@ -10,6 +10,7 @@ use App\Jobs\DeleteAllPictures;
 use App\Jobs\DeletePicture;
 use App\Models\Event;
 use App\Models\User;
+use Cloudinary\Api\Admin\AdminApi;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -50,11 +51,10 @@ class EventController extends Controller
     {
         try {
             $user_id = auth()->user()->id;
-            $user = User::findOrFail($user_id);
             $picture = $request->file('picture');
             $uploadedFileUrl = Cloudinary::upload(
                 $picture->getRealPath(),
-                ['folder' => "events/{$user->name}"]
+                ['folder' => "events/{$user_id}"]
             )->getSecurePath();
 
             $created_event = Event::create([
@@ -85,22 +85,23 @@ class EventController extends Controller
     public function update(UpdateEventRequest $request, $id)
     {
         try {
+            $user_id = auth()->user()->id;
             $event = Event::findOrFail($id);
             $picture = $request->input('picture');
 
             if ($picture) {
                 $uploadedFileUrl = Cloudinary::upload(
                     $picture,
-                    ['folder' => 'events']
+                    ['folder' => "events/{$user_id}"]
                 )->getSecurePath();
+
+                $publicId = "events/$user_id/" . pathinfo($event->picture, PATHINFO_FILENAME);
+                DeletePicture::dispatch($publicId, $picture);
 
                 $event->update([
                     ...$request->validated(),
                     'picture' => $uploadedFileUrl
                 ]);
-
-                $publicId = 'events/' . pathinfo($event->picture, PATHINFO_FILENAME);
-                DeletePicture::dispatch($publicId, $picture);
             } else {
                 $event->update($request->validated());
             }
@@ -117,8 +118,9 @@ class EventController extends Controller
     public function destroy($id)
     {
         try {
+            $user_id = auth()->user()->id;
             $event = Event::findOrFail($id);
-            $publicId = 'events/' . pathinfo($event->picture, PATHINFO_FILENAME);
+            $publicId = "events/$user_id/" . pathinfo($event->picture, PATHINFO_FILENAME);
             DeletePicture::dispatch($publicId);
             $event->delete();
             return response(['message' => 'Event deleted successfully'], 200);

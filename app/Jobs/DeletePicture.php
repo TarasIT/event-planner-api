@@ -22,7 +22,7 @@ class DeletePicture implements ShouldQueue
      * @param string $publicId
      * @param string $picture
      */
-    public function __construct(string $publicId, string $picture = null)
+    public function __construct(string $publicId, string $picture = "")
     {
         $this->publicId = $publicId;
         $this->picture = $picture;

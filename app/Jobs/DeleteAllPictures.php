@@ -18,7 +18,7 @@ class DeleteAllPictures implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(int $user_id)
+    public function __construct(string $user_id)
     {
         $this->user_id = $user_id;
     }
@@ -28,11 +28,10 @@ class DeleteAllPictures implements ShouldQueue
      */
     public function handle(): void
     {
-        $user = User::findOrFail($this->user_id);
-        $folderName = $user->name;
+        $folderName = $this->user_id;
         $adminApi = new AdminApi();
         $adminApi->deleteAllAssets([
-            'folder' => $folderName
+            'folder' => "events/$folderName"
         ]);
         $subFolders = $adminApi->subFolders("events");
         $isFolderExisted = false;

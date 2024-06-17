@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginUserRequest;
 use App\Http\Requests\Auth\SignupUserRequest;
+use App\Jobs\DeleteAllPictures;
 use App\Models\Event;
 use Illuminate\Support\Facades\Log;
 
@@ -83,6 +84,7 @@ class AuthController extends Controller
         try {
             $userId = auth()->user()->id;
             $user = User::findOrFail($userId);
+            DeleteAllPictures::dispatch($userId);
             Event::where('user_id', $userId)->delete();
             $user->delete();
             return response(['message' => 'Your profile and all events deleted successfully'], 200);
