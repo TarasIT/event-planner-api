@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class EmailVerificationController extends Controller
 {
@@ -23,6 +24,7 @@ class EmailVerificationController extends Controller
                 ->to('/api/users/auth/login') //redirect to !frontend! login page
                 ->with(['message' => 'Email verified successfully.'], 200);
         } catch (\Throwable $th) {
+            Log::error("Failed to verify email: " . $th->getMessage());
             return response([
                 'error' => 'Failed to verify email. Please try later.'
             ], 500);
@@ -47,6 +49,7 @@ class EmailVerificationController extends Controller
             }
             return response(['message' => 'Email is already verified'], 400);
         } catch (\Throwable $th) {
+            Log::error("Failed to resend veriffication email: " . $th->getMessage());
             return response([
                 'error' => 'Failed to resend veriffication email. Please try later.'
             ], 500);

@@ -13,6 +13,7 @@ use App\Models\User;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class EventController extends Controller
 {
@@ -40,6 +41,7 @@ class EventController extends Controller
             $paginatedEvents = $events->paginate($perPage);
             return EventResource::collection($paginatedEvents);
         } catch (\Throwable $th) {
+            Log::error("Failed to get events: " . $th->getMessage());
             return response(['error' => 'Failed to get events. Please, try later.'], 500);
         }
     }
@@ -62,6 +64,7 @@ class EventController extends Controller
             ]);
             return new EventResource($created_event);
         } catch (\Throwable $th) {
+            Log::error("Failed to create an event: " . $th->getMessage());
             return response(['error' => 'Failed to create an event. Please, try later.'], 500);
         }
     }
@@ -74,6 +77,7 @@ class EventController extends Controller
         } catch (ModelNotFoundException $e) {
             return response(['error' => "Event with id='$id' is not found"], 404);
         } catch (\Throwable $th) {
+            Log::error("Failed to retrieve an event: " . $th->getMessage());
             return response(['error' => 'Failed to retrieve an event. Please, try later.'], 500);
         }
     }
@@ -104,6 +108,7 @@ class EventController extends Controller
         } catch (ModelNotFoundException $e) {
             return response(['error' => "Event with id='$id' is not found"], 404);
         } catch (\Throwable $th) {
+            Log::error("Failed to update an event: " . $th->getMessage());
             return response(['error' => 'Failed to update an event. Please, try later.'], 500);
         }
     }
@@ -120,6 +125,7 @@ class EventController extends Controller
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => "Event with id='$id' is not found"], 404);
         } catch (\Throwable $th) {
+            Log::error("Failed to delete an event: " . $th->getMessage());
             return response(['error' => 'Failed to delete an event. Please, try later.'], 500);
         }
     }
@@ -138,6 +144,7 @@ class EventController extends Controller
         } catch (ModelNotFoundException $e) {
             return response(['error' => "Events are not found"], 404);
         } catch (\Throwable $th) {
+            Log::error("Failed to delete all events: " . $th->getMessage());
             return response(['error' => 'Failed to delete all events. Please, try later.'], 500);
         }
     }

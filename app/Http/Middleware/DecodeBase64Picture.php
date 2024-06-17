@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class DecodeBase64Picture
 {
@@ -49,14 +50,15 @@ class DecodeBase64Picture
                     mkdir($directory, 0755, true);
                 }
 
-                $fileName = uniqid('event_', true) . ".$extension";
+                $fileName = uniqid('event_', true) . "." . $extension;
                 $filePath = $directory . '/' . $fileName;
                 file_put_contents($filePath, $decodedPicture);
 
                 $request->merge(['picture' => $filePath]);
             }
             return $next($request);
-        } catch (\Throwable $e) {
+        } catch (\Throwable $th) {
+            Log::error("Failed to process picture: " . $th->getMessage());
             return response(['error' => 'Failed to process picture'], 500);
         }
     }

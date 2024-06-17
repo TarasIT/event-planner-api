@@ -8,6 +8,7 @@ use App\Http\Requests\ResetPassword\SendResetLinkRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
@@ -24,8 +25,9 @@ class PasswordResetController extends Controller
                 ? response(['message' => __($status)], 200)
                 : response(['email' => __($status)], 400);
         } catch (\Throwable $th) {
+            Log::error("Failed to send reset link: " . $th->getMessage());
             return response([
-                'error' => 'Failed send reset link. Please try later.'
+                'error' => 'Failed to send reset link. Please try later.'
             ], 500);
         }
     }
@@ -50,8 +52,9 @@ class PasswordResetController extends Controller
                 ? response(['message' => __($status)], 200)
                 : response(['email' => [__($status)]], 400);
         } catch (\Throwable $th) {
+            Log::error("Failed to reset password: " . $th->getMessage());
             return response([
-                'error' => 'Failed reset password. Please try later.'
+                'error' => 'Failed to reset password. Please try later.'
             ], 500);
         }
     }
