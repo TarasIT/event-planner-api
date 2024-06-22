@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Controllers\Auth;
 
 use App\Models\User;
 use Illuminate\Auth\Notifications\VerifyEmail;
@@ -38,7 +38,7 @@ class SignupTest extends TestCase
         Notification::assertSentTo($user, VerifyEmail::class);
     }
 
-    public function test_signup_failure_if_no_password_pass()
+    public function test_signup_failure_if_no_password_passed()
     {
         Notification::fake();
 
@@ -49,7 +49,6 @@ class SignupTest extends TestCase
 
         $response = $this->postJson('/api/users/auth/signup', $data);
         $response->assertStatus(422);
-
         $response->assertJsonValidationErrors('password');
     }
 
