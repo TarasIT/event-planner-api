@@ -36,14 +36,14 @@ class CreateEventTest extends TestCase
         Sanctum::actingAs($user);
 
         $event = [
-            "title" => "Test title",
-            "description" => "Test description",
-            "date" => now()->toDateString(),
-            "time" => now()->toTimeString(),
-            "location" => "Test location",
-            "category" => "Test category",
-            "picture" => UploadedFile::fake()->image('event.jpg'),
-            "priority" => "high"
+            'title' => 'Test title',
+            'description' => 'Test description',
+            'date' => now()->toDateString(),
+            'time' => now()->toTimeString(),
+            'location' => 'Test location',
+            'category' => 'Test category',
+            'picture' => UploadedFile::fake()->image('event.jpg'),
+            'priority' => 'high'
         ];
 
         $response = $this->postJson('/api/events', $event);
@@ -82,5 +82,23 @@ class CreateEventTest extends TestCase
         $response = $this->postJson('/api/events', $event);
         $response->assertStatus(422);
         $response->assertJsonFragment(["date" => ["The date field is required."]]);
+    }
+
+    public function test_create_event_failure_if_wrong_data_type_is_passed()
+    {
+        $user = User::factory()->create();
+        Sanctum::actingAs($user);
+
+        $data = [
+            'title' => 123,
+            'date' => now()->toDateString(),
+            'time' => now()->toTimeString(),
+        ];
+
+        $response = $this->postJson("/api/events", $data);
+        $response->assertStatus(422);
+        $response->assertJsonFragment([
+            'message' => 'The title field must be a string.',
+        ]);
     }
 }
