@@ -28,25 +28,22 @@ class DeleteAllPictures implements ShouldQueue
      */
     public function handle(): void
     {
-        $folderName = $this->user_id;
         $adminApi = new AdminApi();
-        $adminApi->deleteAllAssets([
-            'folder' => "events/$folderName"
-        ]);
+        $adminApi->deleteAllAssets(['folder' => "events/$this->user_id"]);
         $subFolders = $adminApi->subFolders("events");
         $isFolderExisted = false;
 
         foreach ($subFolders['folders'] as $folder) {
-            if ($folder['name'] === $folderName) {
+            if ($folder['name'] === $this->user_id) {
                 $isFolderExisted = true;
                 break;
             }
         }
 
-        $pictures = $adminApi->assetsByAssetFolder("events/$folderName");
+        $pictures = $adminApi->assetsByAssetFolder("events/$this->user_id");
         $picturesCount = $pictures["total_count"];
         if ($isFolderExisted  && !$picturesCount) {
-            $adminApi->deleteFolder("events/$folderName");
+            $adminApi->deleteFolder("events/$this->user_id");
         }
     }
 }

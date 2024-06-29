@@ -53,6 +53,6 @@ class GetEventTest extends TestCase
         $fakeId = $event->id + 1;
         $response = $this->getJson("api/events/$fakeId");
         $response->assertStatus(404);
-        $response->assertJson(['error' => "Event with id='$fakeId' is not found"], 404);
+        $response->assertJson(['error' => "Event with id='$fakeId' is not found."]);
     }
 }

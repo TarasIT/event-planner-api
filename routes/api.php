@@ -20,7 +20,7 @@ Route::prefix('auth/google')->group(function () {
 Route::middleware('guest')->group(function () {
     Route::post(
         '/forgot-password',
-        [PasswordResetController::class, 'sendResetLinkEmail']
+        [PasswordResetController::class, 'sendResetPasswordLinkToEmail']
     )->name('password.email');
     Route::post(
         '/reset-password',
@@ -30,7 +30,7 @@ Route::middleware('guest')->group(function () {
 
 Route::group([], function () {
     Route::get(
-        '/email/verify/{id}',
+        '/email/verify/{user_id}',
         [EmailVerificationController::class, 'verify']
     )->name('verification.verify');
     Route::post(
@@ -39,7 +39,7 @@ Route::group([], function () {
     )->name('verification.resend');
 });
 
-Route::middleware(['auth:sanctum', 'emailVerified'])->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('users')->group(function () {
         Route::post('/auth/logout', [AuthController::class, 'logout']);
         Route::get('/current', [AuthController::class, 'getUser']);

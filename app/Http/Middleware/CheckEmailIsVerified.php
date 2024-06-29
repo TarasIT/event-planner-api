@@ -15,12 +15,12 @@ class CheckEmailIsVerified
         try {
             $user = $request->user() ?: User::where('email', $request->email)->first();
             if ($user && !$user->hasVerifiedEmail()) {
-                return response(['error' => 'Email not verified.'], 403);
+                return response(['error' => 'Email is not verified.'], 403);
             }
             return $next($request);
         } catch (\Throwable $th) {
             Log::error("Failed to check is email verified: " . $th->getMessage());
-            return response(['error' => 'Failed to check is email verified'], 500);
+            return response(['error' => 'Failed to check is email verified.'], 500);
         }
     }
 }

@@ -14,7 +14,7 @@ use Illuminate\Support\Str;
 
 class PasswordResetController extends Controller
 {
-    public function sendResetLinkEmail(SendResetLinkRequest $request)
+    public function sendResetPasswordLinkToEmail(SendResetLinkRequest $request)
     {
         try {
             $status = Password::sendResetLink(
@@ -23,7 +23,7 @@ class PasswordResetController extends Controller
 
             return $status === Password::RESET_LINK_SENT
                 ? response(['message' => __($status)], 200)
-                : response(['email' => __($status)], 400);
+                : response(['error' => __($status)], 400);
         } catch (\Throwable $th) {
             Log::error("Failed to send reset link: " . $th->getMessage());
             return response([
@@ -50,7 +50,7 @@ class PasswordResetController extends Controller
 
             return $status === Password::PASSWORD_RESET
                 ? response(['message' => __($status)], 200)
-                : response(['email' => [__($status)]], 400);
+                : response(['error' => __($status)], 400);
         } catch (\Throwable $th) {
             Log::error("Failed to reset password: " . $th->getMessage());
             return response([

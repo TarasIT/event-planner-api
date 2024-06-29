@@ -12,26 +12,26 @@ class DecodeBase64Picture
     {
         try {
             $pictureBase64 = $request->input('picture');
-            if ($_SERVER["REQUEST_METHOD"] === "PUT" && $pictureBase64) {
+            if ($request->method() === "PUT" && $pictureBase64) {
                 if (strpos($pictureBase64, 'base64,') !== false) {
                     $pictureBase64 = explode('base64,', $pictureBase64)[1];
                 }
 
-                $decodedPicture = base64_decode($pictureBase64);
+                $decodedPicture = base64_decode($pictureBase64, true);
                 if ($decodedPicture === false) {
-                    return response(['error' => 'Invalid base64 encoding'], 400);
+                    return response(['error' => 'Invalid base64 encoding.'], 400);
                 }
 
                 $imageSize = strlen($decodedPicture);
                 $maxImageSize = 20 * 1024;
 
                 if ($imageSize > $maxImageSize) {
-                    return response(['error' => 'Image size should be less than 20 kB'], 413);
+                    return response(['error' => 'Image size should be less than 20 kB.'], 413);
                 }
 
                 $imageData = getimagesizefromstring($decodedPicture);
                 if ($imageData === false) {
-                    return response(['error' => 'Invalid image data'], 400);
+                    return response(['error' => 'Invalid image data.'], 400);
                 }
 
                 $mime = $imageData['mime'];

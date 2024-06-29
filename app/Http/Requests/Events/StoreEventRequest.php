@@ -28,7 +28,7 @@ class StoreEventRequest extends FormRequest
             'time' => 'required|string',
             'location' => 'string|max:50',
             'category' => 'string|max:50',
-            'picture' => 'image|mimes:jpeg,png,jpg,avif,gif,svg|max:20',
+            'picture' => 'image|mimes:jpeg,png,jpg,avif,gif,webp,svg|max:20',
             'priority' => 'string|in:low,medium,high'
         ];
     }

@@ -9,8 +9,6 @@ use App\Http\Resources\EventResource;
 use App\Jobs\DeleteAllPictures;
 use App\Jobs\DeletePicture;
 use App\Models\Event;
-use App\Models\User;
-use Cloudinary\Api\Admin\AdminApi;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -23,7 +21,7 @@ class EventController extends Controller
         try {
             $eventsCount = Event::count();
             if (!$eventsCount) {
-                return response(['error' => 'No events found'], 404);
+                return response(['error' => 'No events found.'], 404);
             }
             $perPage = $request->input('per_page', 10);
             $search = $request->input('search', '');
@@ -75,7 +73,7 @@ class EventController extends Controller
             $event = Event::findOrFail($id);
             return new EventResource($event);
         } catch (ModelNotFoundException $e) {
-            return response(['error' => "Event with id='$id' is not found"], 404);
+            return response(['error' => "Event with id='$id' is not found."], 404);
         } catch (\Throwable $th) {
             Log::error("Failed to retrieve an event: " . $th->getMessage());
             return response(['error' => 'Failed to retrieve an event. Please, try later.'], 500);
@@ -114,7 +112,6 @@ class EventController extends Controller
         }
     }
 
-
     public function destroy($id)
     {
         try {
@@ -123,9 +120,9 @@ class EventController extends Controller
             $publicId = "events/$user_id/" . pathinfo($event->picture, PATHINFO_FILENAME);
             DeletePicture::dispatch($publicId);
             $event->delete();
-            return response(['message' => 'Event deleted successfully'], 200);
+            return response(['message' => 'Event deleted successfully.'], 200);
         } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => "Event with id='$id' is not found"], 404);
+            return response(['error' => "Event with id='$id' is not found."], 404);
         } catch (\Throwable $th) {
             Log::error("Failed to delete an event: " . $th->getMessage());
             return response(['error' => 'Failed to delete an event. Please, try later.'], 500);
@@ -138,13 +135,11 @@ class EventController extends Controller
             $user_id = auth()->user()->id;
             $eventsCount = Event::count();
             if (!$eventsCount) {
-                return response(['error' => 'No events found'], 404);
+                return response(['error' => 'No events found.'], 404);
             }
             DeleteAllPictures::dispatch($user_id);
             Event::query()->delete();
-            return response(['message' => 'All events deleted successfully'], 200);
-        } catch (ModelNotFoundException $e) {
-            return response(['error' => "Events are not found"], 404);
+            return response(['message' => 'All events deleted successfully.'], 200);
         } catch (\Throwable $th) {
             Log::error("Failed to delete all events: " . $th->getMessage());
             return response(['error' => 'Failed to delete all events. Please, try later.'], 500);

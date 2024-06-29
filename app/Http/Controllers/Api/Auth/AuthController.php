@@ -33,11 +33,11 @@ class AuthController extends Controller
         try {
             $user = User::where('email', $request->email)->first();
             if (!$user) {
-                return response(['error' => 'User not found'], 404);
+                return response(['error' => 'User not found.'], 404);
             }
             if (!auth()->attempt($request->only(['email', 'password']))) {
                 return response([
-                    'error' => 'Email or password does not match the record'
+                    'error' => 'Email or password does not match the record.'
                 ], 401);
             }
             $token = $user->createToken("auth_token")->plainTextToken;
@@ -69,7 +69,7 @@ class AuthController extends Controller
         try {
             auth()->user()->tokens()->delete();
             return response([
-                'message' => 'Logged out successfully'
+                'message' => 'Logged out successfully.'
             ], 200);
         } catch (\Throwable $th) {
             Log::error("Failed to logout: " . $th->getMessage());
@@ -87,7 +87,7 @@ class AuthController extends Controller
             DeleteAllPictures::dispatch($userId);
             Event::where('user_id', $userId)->delete();
             $user->delete();
-            return response(['message' => 'Your profile and all events deleted successfully'], 200);
+            return response(['message' => 'Your profile and all events deleted successfully.'], 200);
         } catch (\Throwable $th) {
             Log::error("Failed to delete user profile: " . $th->getMessage());
             return response([
