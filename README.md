@@ -1,6 +1,6 @@
 # Event Planner API
 
-Event Planner is a Laravel-based API designed to manage events. It allows users to create, read, update, and delete events, as well as manage event pictures via the Cloudinary service. Additionally, the API provides authentication features, including email verification and Google sign-up, utilizing Laravel Sanctum.
+Event Planner is a Laravel-based API designed to manage events. It allows users to create, read, update, and delete events, as well as manage event pictures via the Cloudinary service. Additionally, the API provides authentication features, including email verification and Google sign-up, utilizing Laravel Sanctum. Also the API implements reset password feature.
 
 ## Features
 
