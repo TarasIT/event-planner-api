@@ -16,12 +16,19 @@ use App\Http\Controllers\Controller;
  *      }
  *  ),
  *  @OA\Server(
- *      url="http://127.0.0.1:8000/api/documentation",
+ *      url="http://127.0.0.1:8000/api/docs",
  *      description="API server"
- *  )
+ *  ),
  *  @OA\PathItem(
- *      path="/api/documentation"
- * )
+ *      path="/api/docs"
+ *  ),
+ *  @OA\Components(
+ *      @OA\SecurityScheme(
+ *          securityScheme="bearerAuth",
+ *          type="http",
+ *          scheme="bearer"
+ *      )
+ *  )
  **/
 
 class MainController extends Controller
