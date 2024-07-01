@@ -17,6 +17,11 @@ class PasswordResetController extends Controller
     public function sendResetPasswordLinkToEmail(SendResetLinkRequest $request)
     {
         try {
+            $user = User::where('email', $request->email)->first();
+            if (!$user) {
+                return response(['error' => 'User not found.'], 404);
+            }
+
             $status = Password::sendResetLink(
                 $request->only('email')
             );
@@ -35,6 +40,11 @@ class PasswordResetController extends Controller
     public function reset(ResetPasswordRequest $request)
     {
         try {
+            $user = User::where('email', $request->email)->first();
+            if (!$user) {
+                return response(['error' => 'User not found.'], 404);
+            }
+
             $status = Password::reset(
                 $request->only('email', 'password', 'password_confirmation', 'token'),
                 function (User $user, string $password) {
