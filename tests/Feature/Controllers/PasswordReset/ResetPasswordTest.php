@@ -72,16 +72,12 @@ class ResetPasswordTest extends TestCase
             'password_confirmation' => 'password',
             'token' => 'valid-token'
         ];
-        Password::shouldReceive('reset')
-            ->once()
-            ->with($data, \Closure::class)
-            ->andReturn(Password::INVALID_USER);
 
         $response = $this->postJson('api/reset-password', $data);
 
-        $response->assertStatus(400);
+        $response->assertStatus(404);
         $response->assertJson([
-            'error' => trans(Password::INVALID_USER),
+            'error' => 'User not found.',
         ]);
     }
 

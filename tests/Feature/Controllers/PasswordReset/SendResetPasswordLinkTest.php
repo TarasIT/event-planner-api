@@ -61,18 +61,13 @@ class SendResetPasswordLinkTest extends TestCase
 
     public function test_send_reset_password_link_failure_if_user_with_provided_email_is_not_found()
     {
-        Password::shouldReceive('sendResetLink')
-            ->once()
-            ->with(['email' => 'email@example.com'])
-            ->andReturn(Password::INVALID_USER);
-
         $response = $this->postJson('api/forgot-password', [
             'email' => 'email@example.com'
         ]);
 
-        $response->assertStatus(400);
+        $response->assertStatus(404);
         $response->assertJson([
-            'error' => trans(Password::INVALID_USER),
+            'error' => 'User not found.',
         ]);
     }
 
