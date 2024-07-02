@@ -50,16 +50,23 @@ class EventController extends Controller
         try {
             $user_id = auth()->user()->id;
             $picture = $request->file('picture');
-            $uploadedFileUrl = Cloudinary::upload(
-                $picture->getRealPath(),
-                ['folder' => "events/{$user_id}"]
-            )->getSecurePath();
+            if ($picture) {
+                $uploadedFileUrl = Cloudinary::upload(
+                    $picture->getRealPath(),
+                    ['folder' => "events/{$user_id}"]
+                )->getSecurePath();
 
-            $created_event = Event::create([
-                'user_id' => $user_id,
-                ...$request->validated(),
-                'picture' => $uploadedFileUrl
-            ]);
+                $created_event = Event::create([
+                    'user_id' => $user_id,
+                    ...$request->validated(),
+                    'picture' => $uploadedFileUrl
+                ]);
+            } else {
+                $created_event = Event::create([
+                    'user_id' => $user_id,
+                    ...$request->validated()
+                ]);
+            }
             return new EventResource($created_event);
         } catch (\Throwable $th) {
             Log::error("Failed to create an event: " . $th->getMessage());
