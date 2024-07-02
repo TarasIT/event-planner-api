@@ -16,11 +16,11 @@ use App\Http\Controllers\Controller;
  *      }
  *  ),
  *  @OA\Server(
- *      url="http://127.0.0.1:8000/api/docs",
+ *      url="http://127.0.0.1:8000/api",
  *      description="API server"
  *  ),
  *  @OA\PathItem(
- *      path="/api/docs"
+ *      path="/api"
  *  ),
  *  @OA\Components(
  *      @OA\SecurityScheme(

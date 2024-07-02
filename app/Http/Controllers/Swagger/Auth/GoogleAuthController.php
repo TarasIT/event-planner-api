@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 /**
  *  @OA\Get(
  *     path="/auth/google/redirect",
- *     tags={"Authentication"},
+ *     tags={"Google Authentication"},
  *     summary="Redirect to Google for authentication",
  *     description="Redirects the user to Google for authentication",
  *     @OA\Response(
@@ -21,7 +21,7 @@ use App\Http\Controllers\Controller;
  *  ),
  *  @OA\Get(
  *     path="/auth/google/callback",
- *     tags={"Authentication"},
+ *     tags={"Google Authentication"},
  *     summary="Handle Google callback",
  *     description="Handles the callback from Google after authentication",
  *     @OA\Response(
