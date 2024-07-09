@@ -30,7 +30,7 @@ The API manages the following event fields:
 1. Clone the repository:
 
     ```sh
-    git clone https://github.com/your-username/event-planner-api.git
+    git clone https://github.com/TarasIT/event-planner-api.git
     cd event-planner-api
     ```
 
