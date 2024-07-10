@@ -83,8 +83,9 @@ class ResetPasswordTest extends TestCase
 
     public function test_reset_password_failure_if_provided_token_is_not_valid()
     {
+        $user = User::factory()->create();
         $data = [
-            'email' => 'email@example.com',
+            'email' => $user->email,
             'password' => 'password',
             'password_confirmation' => 'password',
             'token' => 'invalid-token'

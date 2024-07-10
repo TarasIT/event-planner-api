@@ -17,7 +17,7 @@ class VerifyEmailTest extends TestCase
         $user = User::factory()->create([
             'email_verified_at' => null,
         ]);
-        $url = URL::signedRoute('verification.verify', ['user_id' => $user->id]);
+        $url = URL::signedRoute('verification.verify', ['id' => $user->id, 'hash' => "validHash"]);
 
         $response = $this->get($url);
 
@@ -25,7 +25,7 @@ class VerifyEmailTest extends TestCase
 
         $this->assertNotNull($user->email_verified_at);
         $response->assertStatus(302);
-        $response->assertRedirect('/api/users/auth/login'); //should redirect to !frontend! login page
+        $response->assertRedirect('/'); //should redirect to !frontend! login page
         $response->assertSessionHas('message', 'Email verified successfully.');
     }
 
@@ -33,7 +33,7 @@ class VerifyEmailTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $url = route('verification.verify', ['user_id' => $user->id]);
+        $url = route('verification.verify', ['id' => $user->id, 'hash' => 'invalidHash']);
 
         $response = $this->get($url);
 
@@ -45,7 +45,7 @@ class VerifyEmailTest extends TestCase
     {
         $invalidUserId = 99999;
 
-        $url = URL::signedRoute('verification.verify', ['user_id' => $invalidUserId]);
+        $url = URL::signedRoute('verification.verify', ['id' => $invalidUserId, 'hash' => 'someHash']);
 
         $response = $this->get($url);
 
