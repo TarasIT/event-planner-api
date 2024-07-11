@@ -30,7 +30,7 @@ Route::middleware('guest')->group(function () {
 
 Route::group([], function () {
     Route::get(
-        '/email/verify/{user_id}',
+        '/email/verify/{id}/{hash}',
         [EmailVerificationController::class, 'verify']
     )->name('verification.verify');
     Route::post(
