@@ -1,0 +1,41 @@
+services:
+
+  nginx:
+    build:
+      context: ./docker/nginx
+      dockerfile: nginx.Dockerfile
+    container_name: nginx
+    volumes:
+      - ./:/var/www
+    environment:
+      - "XDG_CONFIG_HOME=/app"
+    ports:
+      - "8000:80"
+    links:
+      - app
+
+  app:
+    build:
+      context: ./docker/app
+      dockerfile: app.Dockerfile
+    container_name: app
+    volumes:
+      - ./:/var/www
+    links:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    volumes:
+      - database:/var/lib/mysql
+    ports:
+      - "3316:3306"
+    container_name: mysql
+    environment:
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+  
+volumes:
+  database:
