@@ -16,7 +16,7 @@ use App\Http\Controllers\Controller;
  *      }
  *  ),
  *  @OA\Server(
- *      url="http://event-planner-api.000.pe/api",
+ *      url="http://127.0.0.1:8000/api",
  *      description="API server"
  *  ),
  *  @OA\PathItem(
