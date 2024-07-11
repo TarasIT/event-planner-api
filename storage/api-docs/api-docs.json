@@ -12,7 +12,7 @@
     },
     "servers": [
         {
-            "url": "http://event-planner-api.000.pe/api",
+            "url": "http://127.0.0.1:8000/api",
             "description": "API server"
         }
     ],
@@ -1645,5 +1645,27 @@
                 "scheme": "bearer"
             }
         }
-    }
+    },
+    "tags": [
+        {
+            "name": "Authentication",
+            "description": "Authentication"
+        },
+        {
+            "name": "Google Authentication",
+            "description": "Google Authentication"
+        },
+        {
+            "name": "Email Verification",
+            "description": "Email Verification"
+        },
+        {
+            "name": "Event",
+            "description": "Event"
+        },
+        {
+            "name": "Password Reset",
+            "description": "Password Reset"
+        }
+    ]
 }
