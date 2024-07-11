@@ -11,21 +11,21 @@ use Illuminate\Support\Facades\Log;
 
 class EmailVerificationController extends Controller
 {
-    function verify($user_id, Request $request)
+    function verify($id, Request $request)
     {
         try {
             if (!$request->hasValidSignature()) {
                 return response(["messsage" => "Invalid URL provided."], 401);
             }
-            $user = User::findOrFail($user_id);
+            $user = User::findOrFail($id);
             if (!$user->hasVerifiedEmail()) {
                 $user->markEmailAsVerified();
             }
             return redirect()
-                ->to('/api/users/auth/login') //should redirect to !frontend! login page
+                ->to('/') //should redirect to !frontend! login page
                 ->with('message', 'Email verified successfully.');
         } catch (ModelNotFoundException $e) {
-            return response(['error' => "User with id='$user_id' is not found."], 404);
+            return response(['error' => "User with id='$id' is not found."], 404);
         } catch (\Throwable $th) {
             Log::error("Failed to verify email: " . $th->getMessage());
             return response([

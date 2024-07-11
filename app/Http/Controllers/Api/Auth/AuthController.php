@@ -8,6 +8,7 @@ use App\Http\Requests\Auth\LoginUserRequest;
 use App\Http\Requests\Auth\SignupUserRequest;
 use App\Jobs\DeleteAllPictures;
 use App\Models\Event;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
@@ -15,7 +16,8 @@ class AuthController extends Controller
     public function signup(SignupUserRequest $request)
     {
         try {
-            User::create($request->validated())->sendEmailVerificationNotification();
+            $user = User::create($request->validated());
+            event(new Registered($user));
             return response(
                 ['message' => 'Registration successful. Please check your email to verify your account.'],
                 201

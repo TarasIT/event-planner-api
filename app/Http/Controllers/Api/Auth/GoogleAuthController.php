@@ -26,15 +26,24 @@ class GoogleAuthController extends Controller
     {
         try {
             $googleUser = Socialite::driver('google')->stateless()->user();
-            User::updateOrCreate(
-                ['google_id' => $googleUser->id],
-                [
+            $user = User::where('email', $googleUser->email)->first();
+
+            if ($user && !$user->google_id) {
+                $user->update([
+                    'google_id' => $googleUser->id,
+                ]);
+            }
+            if (!$user) {
+                $user = User::create([
                     'name' => $googleUser->name,
                     'email' => $googleUser->email,
-                    'password' => Str::password(12),
+                    'google_id' => $googleUser->id,
+                    'password' => bcrypt(Str::random(16)),
                     'email_verified_at' => now(),
-                ],
-            );
+                ]);
+            }
+            $token = $user->createToken("auth_token")->plainTextToken;
+            return response(['token' => $token], 200);
         } catch (\Throwable $th) {
             Log::error("Failed google callback: " . $th->getMessage());
             return response([
