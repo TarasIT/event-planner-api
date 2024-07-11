@@ -16,7 +16,7 @@ use App\Http\Controllers\Controller;
  *      }
  *  ),
  *  @OA\Server(
- *      url="http://127.0.0.1:8000/api",
+ *      url="https://event-planner-api.onrender.com/api",
  *      description="API server"
  *  ),
  *  @OA\PathItem(
