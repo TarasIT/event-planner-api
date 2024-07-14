@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(UrlGenerator $url): void
     {
-        if (env('APP_ENV') == 'production') {
+        if (env('APP_ENV') == 'production' && $this->app->request->isSecure()) {
             $url->forceScheme('https');
         }
         VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
@@ -36,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
                 ->salutation('Best Regards, event-planner!');
         });
         ResetPassword::createUrlUsing(function (User $user, string $token) {
-            return 'http://127.0.0.1:8000/api/reset-password?token=' . $token;
+            return 'https://event-planner-api.onrender.com/api/reset-password?token=' . $token;
         });
     }
 }
