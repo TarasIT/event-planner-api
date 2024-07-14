@@ -22,10 +22,9 @@ class DeletePicture implements ShouldQueue
      * @param string $publicId
      * @param string $picture
      */
-    public function __construct(string $publicId, string $picture = "")
+    public function __construct(string $publicId)
     {
         $this->publicId = $publicId;
-        $this->picture = $picture;
     }
 
     /**
@@ -37,9 +36,6 @@ class DeletePicture implements ShouldQueue
     {
         if ($this->publicId) {
             Cloudinary::destroy($this->publicId);
-        }
-        if ($this->picture && file_exists($this->picture)) {
-            unlink($this->picture);
         }
     }
 }

@@ -95,18 +95,22 @@ class EventController extends Controller
             $picture = $request->input('picture');
 
             if ($picture) {
+                if ($event->picture) {
+                    $publicId = "events/$user_id/" . pathinfo($event->picture, PATHINFO_FILENAME);
+                    DeletePicture::dispatch($publicId);
+                }
+
                 $uploadedFileUrl = Cloudinary::upload(
                     $picture,
                     ['folder' => "events/{$user_id}"]
                 )->getSecurePath();
 
-                $publicId = "events/$user_id/" . pathinfo($event->picture, PATHINFO_FILENAME);
-                DeletePicture::dispatch($publicId, $picture);
-
                 $event->update([
                     ...$request->validated(),
                     'picture' => $uploadedFileUrl
                 ]);
+
+                unlink($picture);
             } else {
                 $event->update($request->validated());
             }
