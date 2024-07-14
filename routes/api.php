@@ -32,7 +32,7 @@ Route::group([], function () {
     Route::get(
         '/email/verify/{id}/{hash}',
         [EmailVerificationController::class, 'verify']
-    )->name('verification.verify');
+    )->name('verification.verify')->middleware('signed');
     Route::post(
         '/email/resend',
         [EmailVerificationController::class, 'resendEmail']
