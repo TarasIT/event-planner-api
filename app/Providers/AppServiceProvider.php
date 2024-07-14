@@ -7,6 +7,7 @@ use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Routing\UrlGenerator;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,11 +29,16 @@ class AppServiceProvider extends ServiceProvider
             $url->forceScheme('https');
         }
         VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
+            $signedUrl = URL::temporarySignedRoute(
+                'verification.verify',
+                now()->addMinutes(60), // URL expires in 60 minutes
+                ['id' => $notifiable->getKey(), 'hash' => sha1($notifiable->getEmailForVerification())]
+            );
             return (new MailMessage)
                 ->subject('Verify Email Address')
                 ->greeting('Hello, ' . $notifiable->name . "!")
                 ->line('Please, click the button below to verify your email address.')
-                ->action('Verify Email Address', $url)
+                ->action('Verify Email Address', $signedUrl)
                 ->salutation('Best Regards, event-planner!');
         });
         ResetPassword::createUrlUsing(function (User $user, string $token) {
