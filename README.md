@@ -66,6 +66,27 @@ The API manages the following event fields:
     php artisan serve
     ```
 
+## Docker
+
+If you prefer using docker, follow this steps:
+
+1. Clone the Repository:
+
+    ```sh
+    https://github.com/TarasIT/event-planner-api.git
+    cd event-planner-api
+    ```
+
+2. After ensuring you are on the `main` branch Build and Run the Containers:
+
+    ```sh
+    docker compose up --build -d
+    ```
+
+3. Access the Application:
+
+    Open your browser and navigate to 'http://localhost:8000' to access the Laravel API.
+
 ## Contributing
 
 1. Fork the repository.
