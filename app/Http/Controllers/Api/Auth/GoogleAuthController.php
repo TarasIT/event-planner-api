@@ -43,7 +43,11 @@ class GoogleAuthController extends Controller
                 ]);
             }
             $token = $user->createToken("auth_token")->plainTextToken;
-            return response(['token' => $token], 200);
+
+            $frontendAppUrl = 'http://localhost:3000';
+            $redirectUrl = "{$frontendAppUrl}?token=" . urlencode($token);
+
+            return redirect($redirectUrl);
         } catch (\Throwable $th) {
             Log::error("Failed google callback: " . $th->getMessage());
             return response([
