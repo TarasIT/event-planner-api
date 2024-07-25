@@ -43,7 +43,8 @@ class AuthController extends Controller
                 ], 401);
             }
             $token = $user->createToken("auth_token")->plainTextToken;
-            return response(['token' => $token], 200);
+            $redirectUrl = env('FRONTEND_APP_URL') . "?token=" . urlencode($token);
+            return redirect($redirectUrl);
         } catch (\Throwable $th) {
             Log::error("Failed to login: " . $th->getMessage());
             return response([
