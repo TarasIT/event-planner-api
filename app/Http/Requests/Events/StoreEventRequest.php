@@ -29,7 +29,7 @@ class StoreEventRequest extends FormRequest
             'location' => 'string|max:50',
             'category' => 'string|max:50',
             'picture' => 'image|mimes:jpeg,png,jpg,avif,gif,webp,svg|max:20',
-            'priority' => 'string|in:low,medium,high'
+            'priority' => 'string|in:Low,Medium,High'
         ];
     }
 }
