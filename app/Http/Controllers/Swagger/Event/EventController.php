@@ -38,6 +38,37 @@ use App\Http\Controllers\Controller;
  *             type="string"
  *         )
  *     ),
+ *     @OA\Parameter(
+ *         name="category",
+ *         in="query",
+ *         description="Searches events by category",
+ *         required=false,
+ *         @OA\Schema(
+ *             type="string"
+ *         )
+ *     ),
+ *     @OA\Parameter(
+ *         name="sort",
+ *         in="query",
+ *         description="Sorts events by title, date or priority",
+ *         required=false,
+ *         @OA\Schema(
+ *             type="string",
+ *             enum={"name", "date", "priority"},
+ *             example="date"
+ *         )
+ *     ),
+ *     @OA\Parameter(
+ *         name="ascending",
+ *         in="query",
+ *         description="Sorts events by title, date or priority in ascending or descending order",
+ *         required=false,
+ *         @OA\Schema(
+ *             type="boolean",
+ *             enum={"true", "false"},
+ *             example="true"
+ *         )
+ *     ),
  *     @OA\Response(
  *         response=200,
  *         description="Successful response",
@@ -589,6 +620,4 @@ use App\Http\Controllers\Controller;
  */
 
 
-class EventController extends Controller
-{
-}
+class EventController extends Controller {}

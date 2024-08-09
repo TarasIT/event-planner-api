@@ -24,8 +24,18 @@ class EventController extends Controller
                 return response(['error' => 'No events found.'], 404);
             }
             $perPage = $request->input('per_page', 10);
+
             $search = $request->input('search', '');
+
+            $category = $request->input('category', '');
+
+            $sort = $request->input('sort', '');
+            $ascending = $request->input('ascending', '');
+            $direction = strtolower($ascending) === 'false' ? 'desc' : 'asc';
+            $sortColumns = ['title', 'date', 'priority'];
+
             $events = Event::query();
+
             if ($search) {
                 $events = $events->where(function ($query) use ($search) {
                     $query->where('title', 'like', "%$search%")
@@ -37,6 +47,29 @@ class EventController extends Controller
                         ->orWhere('priority', 'like', "%$search%");
                 });
             }
+            if ($category) {
+                $events->where('category', $category);
+            }
+
+            if ($sort) {
+                if (in_array($sort, $sortColumns)) {
+                    switch ($sort) {
+                        case 'title':
+                            $events->orderBy($sort, $direction);
+                            break;
+                        case 'date':
+                            $events->orderBy('date', $direction);
+                            break;
+                        case 'priority':
+                            $priorityOrder = ['Low', 'Medium', 'High'];
+                            $events->orderByRaw("FIELD(priority, '" . implode("','", $priorityOrder) . "') $direction");
+                            break;
+                    }
+                } else {
+                    $events->orderBy('date', 'asc');
+                }
+            }
+
             $paginatedEvents = $events->paginate($perPage);
             return EventResource::collection($paginatedEvents);
         } catch (\Throwable $th) {
