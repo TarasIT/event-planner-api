@@ -30,6 +30,15 @@ use App\Http\Controllers\Controller;
  *         )
  *     ),
  *     @OA\Parameter(
+ *         name="page",
+ *         in="query",
+ *         description="Current page of events",
+ *         required=false,
+ *         @OA\Schema(
+ *             type="integer",
+ *         )
+ *     ),
+ *     @OA\Parameter(
  *         name="search",
  *         in="query",
  *         description="Searches term for events",

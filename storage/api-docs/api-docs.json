@@ -759,6 +759,15 @@
                         }
                     },
                     {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Current page of events",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
                         "name": "search",
                         "in": "query",
                         "description": "Searches term for events",
