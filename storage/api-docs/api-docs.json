@@ -484,14 +484,26 @@
                     "Google Authentication"
                 ],
                 "summary": "Handle Google callback",
-                "description": "Handles the callback from Google after authentication",
+                "description": "Handles the callback from Google after authentication and redirects to the frontend with an authentication token",
                 "operationId": "14def10fcc3c6f92fbc8348c8e977a08",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Authentication token received after successful Google authentication",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                        }
+                    }
+                ],
                 "responses": {
-                    "200": {
-                        "description": "Successfully handled Google callback"
+                    "302": {
+                        "description": "Redirected to the frontend with an authentication token"
                     },
                     "500": {
-                        "description": "Failed google callback. Please try later."
+                        "description": "Failed Google callback. Please try later."
                     }
                 }
             }
