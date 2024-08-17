@@ -339,6 +339,14 @@
                                         "id": {
                                             "type": "string",
                                             "example": "userId"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "John"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "john.doe@example.com"
                                         }
                                     },
                                     "type": "object"

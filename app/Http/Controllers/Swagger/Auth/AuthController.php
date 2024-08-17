@@ -245,6 +245,16 @@ use App\Http\Controllers\Controller;
  *                  property="id",
  *                  type="string",
  *                  example="userId"
+ *              ),
+ *              @OA\Property(
+ *                  property="name",
+ *                  type="string",
+ *                  example="John"
+ *              ),
+ *              @OA\Property(
+ *                  property="email",
+ *                  type="string",
+ *                  example="john.doe@example.com"
  *              )
  *          )
  *      ),
@@ -329,6 +339,4 @@ use App\Http\Controllers\Controller;
  *  )
  */
 
-class AuthController extends Controller
-{
-}
+class AuthController extends Controller {}
