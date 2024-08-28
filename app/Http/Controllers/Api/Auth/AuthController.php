@@ -61,8 +61,10 @@ class AuthController extends Controller
             $user = User::where('id', auth()->user()->id)->first();
             return response([
                 'id' => $user->id,
+                'google_id' => $user->google_id,
                 'name' => $user->name,
-                'email' => $user->email
+                'email' => $user->email,
+                'password' => $user->password
             ], 200);
         } catch (\Throwable $th) {
             Log::error("Failed to get user: " . $th->getMessage());

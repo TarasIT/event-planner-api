@@ -247,6 +247,11 @@ use App\Http\Controllers\Controller;
  *                  example="userId"
  *              ),
  *              @OA\Property(
+ *                   property="google_id",
+ *                   type="string",
+ *                   example="123"
+ *               ),
+ *              @OA\Property(
  *                  property="name",
  *                  type="string",
  *                  example="John"
@@ -255,7 +260,13 @@ use App\Http\Controllers\Controller;
  *                  property="email",
  *                  type="string",
  *                  example="john.doe@example.com"
- *              )
+ *              ),
+ *              @OA\Property(
+ *                   property="password",
+ *                   type="string",
+ *                   example="userPassword",
+ *                   nullable=true
+ *              ),
  *          )
  *      ),
  *      @OA\Response(

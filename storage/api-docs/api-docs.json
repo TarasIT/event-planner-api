@@ -340,6 +340,10 @@
                                             "type": "string",
                                             "example": "userId"
                                         },
+                                        "google_id": {
+                                            "type": "string",
+                                            "example": "123"
+                                        },
                                         "name": {
                                             "type": "string",
                                             "example": "John"
@@ -347,6 +351,11 @@
                                         "email": {
                                             "type": "string",
                                             "example": "john.doe@example.com"
+                                        },
+                                        "password": {
+                                            "type": "string",
+                                            "example": "userPassword",
+                                            "nullable": true
                                         }
                                     },
                                     "type": "object"
