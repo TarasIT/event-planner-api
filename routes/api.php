@@ -44,6 +44,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/auth/logout', [AuthController::class, 'logout']);
         Route::get('/current', [AuthController::class, 'getUser']);
         Route::delete('/current', [AuthController::class, 'deleteUser']);
+        Route::post('/auth/change-password', [AuthController::class, 'changePassword']);
     });
 
     Route::apiResource('events', EventController::class)->middleware('pictureDecoded');

@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\ChangePasswordRequest;
 use App\Http\Requests\Auth\LoginUserRequest;
 use App\Http\Requests\Auth\SignupUserRequest;
 use App\Jobs\DeleteAllPictures;
 use App\Models\Event;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
@@ -97,6 +100,24 @@ class AuthController extends Controller
             Log::error("Failed to delete user profile: " . $th->getMessage());
             return response([
                 'error' => 'Failed to delete user profile. Please try later.'
+            ], 500);
+        }
+    }
+
+    public function changePassword(ChangePasswordRequest $request)
+    {
+        try {
+            $user = Auth::user();
+            if (!Hash::check($request->current_password, $user->password)) {
+                return response(['error' => 'Current password is incorrect.'], 400);
+            }
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+            return response(['message' => 'Password changed successfully.'], 200);
+        } catch (\Throwable $th) {
+            Log::error("Failed to change password: " . $th->getMessage());
+            return response([
+                'error' => 'Failed to change password. Please try later.'
             ], 500);
         }
     }
