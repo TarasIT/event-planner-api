@@ -336,7 +336,87 @@ use App\Http\Controllers\Controller;
  *              )
  *          )
  *      )
- *  )
+ *  ),
+ * @OA\Post(
+ *       path="/users/auth/change-password",
+ *       summary="Changes a password",
+ *       tags={"Authentication"},
+ *       description="Changes a password",
+ *       @OA\RequestBody(
+ *           required=true,
+ *           @OA\MediaType(
+ *               mediaType="application/json",
+ *               @OA\Schema(
+ *                   type="object",
+ *                   @OA\Property(
+ *                       property="current_password",
+ *                       type="string"
+ *                   ),
+ *                   @OA\Property(
+ *                       property="new_password",
+ *                       type="string"
+ *                   ),
+ *                   @OA\Property(
+ *                       property="new_password_confirmation",
+ *                       type="string"
+ *                   )
+ *               ),
+ *               example={
+ *                   "current_password": "currentPassword",
+ *                   "new_password": "newPassword",
+ *                   "new_password_confirmation": "newPassword"
+ *               }
+ *           )
+ *       ),
+ *       @OA\Response(
+ *           response=200,
+ *           description="Password changed successfully",
+ *           @OA\JsonContent(
+ *               type="object",
+ *               @OA\Property(
+ *                   property="message",
+ *                   type="string",
+ *                   example="Password changed successfully."
+ *               )
+ *           )
+ *       ),
+ *       @OA\Response(
+ *           response=400,
+ *           description="Incorrect password",
+ *           @OA\JsonContent(
+ *               type="object",
+ *               @OA\Property(
+ *                   property="error",
+ *                   type="string",
+ *                   example="Current password is incorrect.",
+ *               )
+ *           )
+ *       ),
+ *       @OA\Response(
+ *           response=422,
+ *           description="Request validation error",
+ *           @OA\JsonContent(
+ *               type="object",
+ *               @OA\Property(
+ *                   property="message",
+ *                   type="string",
+ *                   example="The current_password field is required.",
+ *               )
+ *           )
+ *       ),
+ *       @OA\Response(
+ *           response=500,
+ *           description="Failed to change password.",
+ *           @OA\JsonContent(
+ *               type="object",
+ *               @OA\Property(
+ *                   property="error",
+ *                   type="string",
+ *                   example="Failed to change password. Please try later."
+ *               )
+ *           )
+ *       )
+ *   ),
  */
 
 class AuthController extends Controller {}

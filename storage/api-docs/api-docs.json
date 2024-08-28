@@ -468,6 +468,108 @@
                 ]
             }
         },
+        "/users/auth/change-password": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Changes a password",
+                "description": "Changes a password",
+                "operationId": "9336250f634931dfd9b60f7cd4c75255",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "current_password": {
+                                        "type": "string"
+                                    },
+                                    "new_password": {
+                                        "type": "string"
+                                    },
+                                    "new_password_confirmation": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "current_password": "currentPassword",
+                                "new_password": "newPassword",
+                                "new_password_confirmation": "newPassword"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Password changed successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Password changed successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Incorrect password",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Current password is incorrect."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Request validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The current_password field is required."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Failed to change password.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Failed to change password. Please try later."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/auth/google/redirect": {
             "get": {
                 "tags": [
@@ -1407,6 +1509,17 @@
                 "summary": "Resets password",
                 "description": "Resets the user's password using the provided token",
                 "operationId": "fcbb1baab962b744b5247c05fc81412c",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "path",
+                        "description": "Token for password reset",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -1430,9 +1543,6 @@
                                     "password_confirmation": {
                                         "type": "string",
                                         "format": "password"
-                                    },
-                                    "token": {
-                                        "type": "string"
                                     }
                                 },
                                 "type": "object"
@@ -1440,8 +1550,7 @@
                             "example": {
                                 "email": "user@example.com",
                                 "password": "newPassword",
-                                "password_confirmation": "newPassword",
-                                "token": "valid token"
+                                "password_confirmation": "newPassword"
                             }
                         }
                     }

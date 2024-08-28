@@ -38,8 +38,8 @@ use App\Http\Controllers\Controller;
  *                 property="error",
  *                 type="string",
  *                 example="User not found."
- *             ) 
- *         )   
+ *             )
+ *         )
  *     ),
  *     @OA\Response(
  *         response=422,
@@ -62,8 +62,8 @@ use App\Http\Controllers\Controller;
  *                 property="error",
  *                 type="string",
  *                 example="Failed to send reset link. Please try later."
- *             ) 
- *         )   
+ *             )
+ *         )
  *     )
  * ),
  * @OA\Post(
@@ -71,6 +71,13 @@ use App\Http\Controllers\Controller;
  *     tags={"Password Reset"},
  *     summary="Resets password",
  *     description="Resets the user's password using the provided token",
+ *     @OA\Parameter(
+ *         name="token",
+ *         in="path",
+ *         required=true,
+ *         description="Token for password reset",
+ *         @OA\Schema(type="string")
+ *     ),
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
@@ -78,8 +85,7 @@ use App\Http\Controllers\Controller;
  *             @OA\Property(property="email", type="string", format="email"),
  *             @OA\Property(property="password", type="string", format="password"),
  *             @OA\Property(property="password_confirmation", type="string", format="password"),
- *             @OA\Property(property="token", type="string"),
- *             example={"email": "user@example.com", "password": "newPassword", "password_confirmation": "newPassword", "token": "valid token"}
+ *             example={"email": "user@example.com", "password": "newPassword", "password_confirmation": "newPassword"}
  *         )
  *     ),
  *     @OA\Response(
@@ -91,8 +97,8 @@ use App\Http\Controllers\Controller;
  *                 property="message",
  *                 type="string",
  *                 example="Your password has been reset."
- *             ) 
- *         )  
+ *             )
+ *         )
  *     ),
  *     @OA\Response(
  *         response=400,
@@ -103,8 +109,8 @@ use App\Http\Controllers\Controller;
  *                 property="error",
  *                 type="string",
  *                 example="This password reset token is invalid."
- *             ) 
- *         )   
+ *             )
+ *         )
  *     ),
  *     @OA\Response(
  *         response=404,
@@ -115,8 +121,8 @@ use App\Http\Controllers\Controller;
  *                 property="error",
  *                 type="string",
  *                 example="User not found."
- *             ) 
- *         )   
+ *             )
+ *         )
  *     ),
  *     @OA\Response(
  *         response=422,
@@ -139,8 +145,8 @@ use App\Http\Controllers\Controller;
  *                 property="error",
  *                 type="string",
  *                 example="Failed to reset password. Please try later."
- *             ) 
- *         )  
+ *             )
+ *         )
  *     )
  * )
  */
