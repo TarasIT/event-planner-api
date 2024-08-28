@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ChangePasswordRequest extends FormRequest
 {
@@ -21,9 +22,16 @@ class ChangePasswordRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'current_password' => 'required',
+        $user = Auth::user();
+
+        $rules = [
             'new_password' => 'required|min:8|confirmed',
         ];
+
+        if ($user->password) {
+            $rules['current_password'] = 'required|min:8';
+        }
+
+        return $rules;
     }
 }

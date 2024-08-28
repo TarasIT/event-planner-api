@@ -108,7 +108,7 @@ class AuthController extends Controller
     {
         try {
             $user = Auth::user();
-            if (!Hash::check($request->current_password, $user->password)) {
+            if ($user->password && !Hash::check($request->current_password, $user->password)) {
                 return response(['error' => 'Current password is incorrect.'], 400);
             }
             $user->password = Hash::make($request->new_password);
