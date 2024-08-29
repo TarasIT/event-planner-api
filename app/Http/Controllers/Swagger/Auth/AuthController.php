@@ -86,7 +86,7 @@ use App\Http\Controllers\Controller;
  *                  ),
  *                  @OA\Property(
  *                      property="password",
- *                      type="string"
+ *                      type="string",
  *                  )
  *              ),
  *              example={"email": "john.doe@example.com", "password": "johnPassword"}
@@ -249,7 +249,8 @@ use App\Http\Controllers\Controller;
  *              @OA\Property(
  *                   property="google_id",
  *                   type="string",
- *                   example="123"
+ *                   example="123",
+ *                   nullable=true
  *               ),
  *              @OA\Property(
  *                  property="name",
