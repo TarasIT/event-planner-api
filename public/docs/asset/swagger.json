@@ -1091,15 +1091,6 @@
                         "schema": {
                             "type": "string"
                         }
-                    },
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Event ID",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
                     }
                 ],
                 "responses": {

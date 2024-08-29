@@ -117,9 +117,9 @@ use App\Http\Controllers\Controller;
  *         )
  *     )
  * ),
- * 
- * 
- * 
+ *
+ *
+ *
  * @OA\Post(
  *      path="/events",
  *      summary="Creates a new event",
@@ -182,9 +182,9 @@ use App\Http\Controllers\Controller;
  *          )
  *      ),
  * ),
- * 
- * 
- * 
+ *
+ *
+ *
  * @OA\Get(
  *     path="/events/{id}",
  *     summary="Gets the event by id",
@@ -244,9 +244,9 @@ use App\Http\Controllers\Controller;
  *         )
  *     )
  * ),
- * 
- * 
- * 
+ *
+ *
+ *
  * @OA\Put(
  *     path="/events/{id}",
  *     summary="Updates the event by id",
@@ -316,9 +316,9 @@ use App\Http\Controllers\Controller;
  *         )
  *     )
  * ),
- * 
- * 
- * 
+ *
+ *
+ *
  * @OA\Delete(
  *     path="/events/{id}",
  *     summary="Deletes the event by id",
@@ -379,9 +379,9 @@ use App\Http\Controllers\Controller;
  *         )
  *     )
  * ),
- * 
- * 
- * 
+ *
+ *
+ *
  * @OA\Delete(
  *     path="/events",
  *     summary="Deletes all events",
@@ -394,15 +394,6 @@ use App\Http\Controllers\Controller;
  *         description="Bearer token",
  *         @OA\Schema(
  *             type="string"
- *         )
- *     ),
- *     @OA\Parameter(
- *         name="id",
- *         in="path",
- *         required=true,
- *         description="Event ID",
- *         @OA\Schema(
- *             type="integer"
  *         )
  *     ),
  *     @OA\Response(
@@ -442,9 +433,9 @@ use App\Http\Controllers\Controller;
  *         )
  *     )
  * ),
- * 
- * 
- * 
+ *
+ *
+ *
  * @OA\Schema(
  *     schema="CreateEvent",
  *     type="object",
@@ -493,8 +484,8 @@ use App\Http\Controllers\Controller;
  *     ),
  *     example={
  *         "title": "Meeting",
- *         "description": "This meeting is very important", 
- *         "date": "01/07/2024", 
+ *         "description": "This meeting is very important",
+ *         "date": "01/07/2024",
  *         "time": "09:00 AM",
  *         "location": "Kyiv",
  *         "category": "Business",
@@ -502,10 +493,10 @@ use App\Http\Controllers\Controller;
  *         "priority": "high"
  *     }
  * ),
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
  * @OA\Schema(
  *     schema="UpdateEvent",
  *     type="object",
@@ -553,8 +544,8 @@ use App\Http\Controllers\Controller;
  *     ),
  *     example={
  *         "title": "Meeting",
- *         "description": "This meeting is very important", 
- *         "date": "01/07/2024", 
+ *         "description": "This meeting is very important",
+ *         "date": "01/07/2024",
  *         "time": "09:00 AM",
  *         "location": "Kyiv",
  *         "category": "Business",
@@ -562,9 +553,9 @@ use App\Http\Controllers\Controller;
  *         "priority": "high"
  *     }
  * ),
- * 
- * 
- * 
+ *
+ *
+ *
  * @OA\Schema(
  *     schema="ResponseEventScheme",
  *     type="object",
@@ -617,8 +608,8 @@ use App\Http\Controllers\Controller;
  *     example={
  *         "id": "4",
  *         "title": "Meeting",
- *         "description": "This meeting is very important", 
- *         "date": "01/07/2024", 
+ *         "description": "This meeting is very important",
+ *         "date": "01/07/2024",
  *         "time": "09:00 AM",
  *         "location": "Kyiv",
  *         "category": "Business",
