@@ -40,10 +40,10 @@ class DeleteAllPictures implements ShouldQueue
             }
         }
 
-        $pictures = $adminApi->assetsByAssetFolder("events/$this->user_id");
-        $picturesCount = $pictures["total_count"];
-        if ($isFolderExisted  && !$picturesCount) {
+        if ($isFolderExisted) {
             $adminApi->deleteFolder("events/$this->user_id");
+        } else {
+            return;
         }
     }
 }
