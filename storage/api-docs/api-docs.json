@@ -430,7 +430,7 @@
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "Your profile and all events deleted successfully."
+                                            "example": "Your profile deleted successfully."
                                         }
                                     },
                                     "type": "object"
@@ -462,7 +462,7 @@
                                     "properties": {
                                         "error": {
                                             "type": "string",
-                                            "example": "Failed to delete user profile. Please try later."
+                                            "example": "Failed to delete profile. Please try later."
                                         }
                                     },
                                     "type": "object"

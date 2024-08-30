@@ -320,7 +320,7 @@ use App\Http\Controllers\Controller;
  *              @OA\Property(
  *                  property="message",
  *                  type="string",
- *                  example="Your profile and all events deleted successfully."
+ *                  example="Your profile deleted successfully."
  *              )
  *          )
  *      ),
@@ -344,7 +344,7 @@ use App\Http\Controllers\Controller;
  *              @OA\Property(
  *                  property="error",
  *                  type="string",
- *                  example="Failed to delete user profile. Please try later."
+ *                  example="Failed to delete profile. Please try later."
  *              )
  *          )
  *      )

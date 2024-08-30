@@ -97,11 +97,11 @@ class AuthController extends Controller
             DeleteAllPictures::dispatch($userId);
             Event::where('user_id', $userId)->delete();
             $user->delete();
-            return response(['message' => 'Your profile and all events deleted successfully.'], 200);
+            return response(['message' => 'Your profile deleted successfully.'], 200);
         } catch (\Throwable $th) {
-            Log::error("Failed to delete user profile: " . $th->getMessage());
+            Log::error("Failed to delete profile: " . $th->getMessage());
             return response([
-                'error' => 'Failed to delete user profile. Please try later.'
+                'error' => 'Failed to delete profile. Please try later.'
             ], 500);
         }
     }
