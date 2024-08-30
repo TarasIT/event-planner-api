@@ -350,7 +350,7 @@ use App\Http\Controllers\Controller;
  *      )
  *  ),
  * @OA\Post(
- *       path="/users/auth/change-password",
+ *       path="/users/change-password",
  *       summary="Changes a password",
  *       tags={"Authentication"},
  *       security={{ "bearerAuth": {} }},

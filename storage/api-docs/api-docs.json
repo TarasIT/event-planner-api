@@ -478,14 +478,14 @@
                 ]
             }
         },
-        "/users/auth/change-password": {
+        "/users/change-password": {
             "post": {
                 "tags": [
                     "Authentication"
                 ],
                 "summary": "Changes a password",
                 "description": "Changes a password",
-                "operationId": "9336250f634931dfd9b60f7cd4c75255",
+                "operationId": "c5c897497613682421c39da13f28a853",
                 "parameters": [
                     {
                         "name": "Authorization",
