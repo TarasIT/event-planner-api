@@ -353,6 +353,18 @@ use App\Http\Controllers\Controller;
  *       path="/users/auth/change-password",
  *       summary="Changes a password",
  *       tags={"Authentication"},
+ *       security={{ "bearerAuth": {} }},
+ *       parameters={
+ *           @OA\Parameter(
+ *               name="Authorization",
+ *               in="header",
+ *               required=true,
+ *               description="Bearer token",
+ *               @OA\Schema(
+ *                   type="string"
+ *               )
+ *           )
+ *       },
  *       description="Changes a password",
  *       @OA\RequestBody(
  *           required=true,

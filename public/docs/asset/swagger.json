@@ -486,6 +486,17 @@
                 "summary": "Changes a password",
                 "description": "Changes a password",
                 "operationId": "9336250f634931dfd9b60f7cd4c75255",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Bearer token",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -577,7 +588,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/auth/google/redirect": {
