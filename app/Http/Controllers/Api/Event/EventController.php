@@ -47,7 +47,7 @@ class EventController extends Controller
                         ->orWhere('priority', 'like', "%$search%");
                 });
             }
-            if ($category) {
+            if ($category && $category !== "all") {
                 $events->where('category', $category);
             }
 
