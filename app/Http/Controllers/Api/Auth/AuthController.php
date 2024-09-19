@@ -64,7 +64,7 @@ class AuthController extends Controller
                 'google_id' => $user->google_id,
                 'name' => $user->name,
                 'email' => $user->email,
-                'password' => $user->password
+                'is_password_existed' => $user->password ? true : false,
             ], 200);
         } catch (\Throwable $th) {
             Log::error("Failed to get user: " . $th->getMessage());
