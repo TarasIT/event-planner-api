@@ -353,10 +353,9 @@
                                             "type": "string",
                                             "example": "john.doe@example.com"
                                         },
-                                        "password": {
-                                            "type": "string",
-                                            "example": "userPassword",
-                                            "nullable": true
+                                        "is_password_existed": {
+                                            "type": "boolean",
+                                            "example": "true"
                                         }
                                     },
                                     "type": "object"

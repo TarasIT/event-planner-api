@@ -263,10 +263,9 @@ use App\Http\Controllers\Controller;
  *                  example="john.doe@example.com"
  *              ),
  *              @OA\Property(
- *                   property="password",
- *                   type="string",
- *                   example="userPassword",
- *                   nullable=true
+ *                   property="is_password_existed",
+ *                   type="boolean",
+ *                   example="true"
  *              ),
  *          )
  *      ),
