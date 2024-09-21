@@ -43,8 +43,7 @@ class CustomResetPassword extends Notification
             ->line('You are receiving this email because we received a password reset request for your account.')
             ->action('Reset Password', $url)
             ->line('If you did not request a password reset, no further action is required.')
-            ->line('Thank you for using our application!')
-            ->salutation('Best regards, Event-planner team!');
+            ->line('Thank you for using our application!');
     }
 
     /**
