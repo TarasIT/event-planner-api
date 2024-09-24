@@ -27,7 +27,7 @@ use App\Http\Controllers\Controller;
  *                 type="string",
  *                 example="Email verified successfully.",
  *             )
- *         )   
+ *         )
  *     ),
  *     @OA\Response(
  *         response=401,
@@ -114,7 +114,7 @@ use App\Http\Controllers\Controller;
  *                 type="string",
  *                 example="Email or password does not match the record.",
  *             )
- *         )    
+ *         )
  *  ),
  *     @OA\Response(
  *         response=404,
@@ -126,7 +126,7 @@ use App\Http\Controllers\Controller;
  *                 type="string",
  *                 example="User not found.",
  *             )
- *         )    
+ *         )
  *     ),
  *     @OA\Response(
  *         response=422,
@@ -148,13 +148,11 @@ use App\Http\Controllers\Controller;
  *             @OA\Property(
  *                 property="error",
  *                 type="string",
- *                 example="Failed to resend veriffication email. Please try later.",
+ *                 example="Failed to resend verification email. Please try later.",
  *             )
  *         )
  *     )
  *  )
  */
 
-class EmailVerificationController extends Controller
-{
-}
+class EmailVerificationController extends Controller {}

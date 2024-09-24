@@ -52,9 +52,9 @@ class EmailVerificationController extends Controller
             }
             return response(['error' => 'Email is already verified.'], 400);
         } catch (\Throwable $th) {
-            Log::error("Failed to resend veriffication email: " . $th->getMessage());
+            Log::error("Failed to resend verification email: " . $th->getMessage());
             return response([
-                'error' => 'Failed to resend veriffication email. Please try later.'
+                'error' => 'Failed to resend verification email. Please try later.'
             ], 500);
         }
     }

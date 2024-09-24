@@ -855,7 +855,7 @@
                                     "properties": {
                                         "error": {
                                             "type": "string",
-                                            "example": "Failed to resend veriffication email. Please try later."
+                                            "example": "Failed to resend verification email. Please try later."
                                         }
                                     },
                                     "type": "object"
