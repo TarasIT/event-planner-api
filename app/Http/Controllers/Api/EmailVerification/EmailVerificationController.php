@@ -15,22 +15,23 @@ class EmailVerificationController extends Controller
     {
         try {
             if (!$request->hasValidSignature()) {
-                return response(["messsage" => "Invalid URL provided."], 401);
+                return redirect()
+                    ->to('http://localhost:3000/email-verification?message=' . urlencode('Invalid URL provided.'));
             }
             $user = User::findOrFail($id);
             if (!$user->hasVerifiedEmail()) {
                 $user->markEmailAsVerified();
             }
+
             return redirect()
-                ->to('http://localhost:3000/email-verification') //should redirect to !frontend! page
-                ->with('message', 'Email verified successfully.');
+                ->to('http://localhost:3000/email-verification?message=' . urlencode('Email verified successfully.'));
         } catch (ModelNotFoundException $e) {
-            return response(['error' => "User with id='$id' is not found."], 404);
+            return redirect()
+                ->to('http://localhost:3000/email-verification?message=' . urlencode("User with id='$id' is not found."));
         } catch (\Throwable $th) {
             Log::error("Failed to verify email: " . $th->getMessage());
-            return response([
-                'error' => 'Failed to verify email. Please try later.'
-            ], 500);
+            return redirect()
+                ->to('http://localhost:3000/email-verification?message=' . urlencode('Failed to verify email. Please try later.'));
         }
     }
 
