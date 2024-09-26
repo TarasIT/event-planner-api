@@ -22,7 +22,7 @@ class EmailVerificationController extends Controller
                 $user->markEmailAsVerified();
             }
             return redirect()
-                ->to('/') //should redirect to !frontend! login page
+                ->to('http://localhost:3000/email-verification') //should redirect to !frontend! page
                 ->with('message', 'Email verified successfully.');
         } catch (ModelNotFoundException $e) {
             return response(['error' => "User with id='$id' is not found."], 404);
