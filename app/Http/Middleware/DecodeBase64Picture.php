@@ -11,13 +11,17 @@ class DecodeBase64Picture
     public function handle(Request $request, Closure $next)
     {
         try {
-            $pictureBase64 = $request->input('picture');
-            if ($request->method() === "PUT" && $pictureBase64) {
-                if (strpos($pictureBase64, 'base64,') !== false) {
-                    $pictureBase64 = explode('base64,', $pictureBase64)[1];
+            $picture = $request->input('picture');
+            if ($request->method() === "PUT" && $picture) {
+                if (filter_var($picture, FILTER_VALIDATE_URL)) {
+                    return $next($request);
                 }
 
-                $decodedPicture = base64_decode($pictureBase64, true);
+                if (strpos($picture, 'base64,') !== false) {
+                    $picture = explode('base64,', $picture)[1];
+                }
+
+                $decodedPicture = base64_decode($picture, true);
                 if ($decodedPicture === false) {
                     return response(['error' => 'Invalid base64 encoding.'], 400);
                 }
