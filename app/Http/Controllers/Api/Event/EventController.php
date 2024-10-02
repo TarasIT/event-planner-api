@@ -127,26 +127,37 @@ class EventController extends Controller
             $event = Event::findOrFail($id);
             $picture = $request->input('picture');
 
-            if ($picture && !filter_var($picture, FILTER_VALIDATE_URL)) {
-                if ($event->picture) {
-                    $publicId = "events/$user_id/" . pathinfo($event->picture, PATHINFO_FILENAME);
-                    DeletePicture::dispatch($publicId);
-                }
-
-                $uploadedFileUrl = Cloudinary::upload(
-                    $picture,
-                    ['folder' => "events/{$user_id}"]
-                )->getSecurePath();
-
-                $event->update([
-                    ...$request->validated(),
-                    'picture' => $uploadedFileUrl
-                ]);
-
-                unlink($picture);
-            } else {
-                $event->update($request->validated());
+            switch (true) {
+                case $picture && !filter_var($picture, FILTER_VALIDATE_URL):
+                    if ($event->picture) {
+                        $publicId = "events/$user_id/" . pathinfo($event->picture, PATHINFO_FILENAME);
+                        DeletePicture::dispatch($publicId);
+                    }
+                    $uploadedFileUrl = Cloudinary::upload(
+                        $picture,
+                        ['folder' => "events/{$user_id}"]
+                    )->getSecurePath();
+                    $event->update([
+                        ...$request->validated(),
+                        'picture' => $uploadedFileUrl
+                    ]);
+                    unlink($picture);
+                    break;
+                case !$picture && $event->picture:
+                    $pattern = '/\/image\/upload\/(?:v\d+\/)?(events\/\d+\/[^\/]+)\.\w+$/';
+                    if (preg_match($pattern, $event->picture, $matches)) {
+                        DeletePicture::dispatch($matches[1]);
+                        $event->update([
+                            ...$request->validated(),
+                            'picture' => null
+                        ]);
+                    }
+                    break;
+                default:
+                    $event->update($request->validated());
+                    break;
             }
+
             return new EventResource($event);
         } catch (ModelNotFoundException $e) {
             return response(['error' => "Event with id='$id' is not found"], 404);
