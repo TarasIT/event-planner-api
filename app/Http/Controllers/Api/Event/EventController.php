@@ -127,7 +127,7 @@ class EventController extends Controller
             $event = Event::findOrFail($id);
             $picture = $request->input('picture');
 
-            if ($picture) {
+            if ($picture && !filter_var($picture, FILTER_VALIDATE_URL)) {
                 if ($event->picture) {
                     $publicId = "events/$user_id/" . pathinfo($event->picture, PATHINFO_FILENAME);
                     DeletePicture::dispatch($publicId);
