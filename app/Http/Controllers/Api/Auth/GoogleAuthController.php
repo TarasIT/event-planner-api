@@ -15,7 +15,7 @@ class GoogleAuthController extends Controller
             return Socialite::driver('google')->stateless()->redirect();
         } catch (\Throwable $th) {
             Log::error("Failed google redirect: " . $th->getMessage());
-            return response([
+            return response()->json([
                 'error' => 'Failed google redirect. Please try later.'
             ], 500);
         }
@@ -46,7 +46,7 @@ class GoogleAuthController extends Controller
             return redirect($redirectUrl);
         } catch (\Throwable $th) {
             Log::error("Failed google callback: " . $th->getMessage());
-            return response([
+            return response()->json([
                 'error' => 'Failed google callback. Please try later.'
             ], 500);
         }

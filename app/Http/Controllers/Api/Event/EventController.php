@@ -21,7 +21,7 @@ class EventController extends Controller
         try {
             $eventsCount = Event::count();
             if (!$eventsCount) {
-                return response(['error' => 'No events found.'], 404);
+                return response()->json(['error' => 'No events found.'], 404);
             }
             $perPage = $request->input('per_page', 10);
 
@@ -74,7 +74,7 @@ class EventController extends Controller
             return EventResource::collection($paginatedEvents);
         } catch (\Throwable $th) {
             Log::error("Failed to get events: " . $th->getMessage());
-            return response(['error' => 'Failed to get events. Please, try later.'], 500);
+            return response()->json(['error' => 'Failed to get events. Please, try later.'], 500);
         }
     }
 
@@ -103,7 +103,7 @@ class EventController extends Controller
             return new EventResource($created_event);
         } catch (\Throwable $th) {
             Log::error("Failed to create an event: " . $th->getMessage());
-            return response(['error' => 'Failed to create an event. Please, try later.'], 500);
+            return response()->json(['error' => 'Failed to create an event. Please, try later.'], 500);
         }
     }
 
@@ -113,10 +113,10 @@ class EventController extends Controller
             $event = Event::findOrFail($id);
             return new EventResource($event);
         } catch (ModelNotFoundException $e) {
-            return response(['error' => "Event with id='$id' is not found."], 404);
+            return response()->json(['error' => "Event with id='$id' is not found."], 404);
         } catch (\Throwable $th) {
             Log::error("Failed to retrieve an event: " . $th->getMessage());
-            return response(['error' => 'Failed to retrieve an event. Please, try later.'], 500);
+            return response()->json(['error' => 'Failed to retrieve an event. Please, try later.'], 500);
         }
     }
 
@@ -160,10 +160,10 @@ class EventController extends Controller
 
             return new EventResource($event);
         } catch (ModelNotFoundException $e) {
-            return response(['error' => "Event with id='$id' is not found"], 404);
+            return response()->json(['error' => "Event with id='$id' is not found"], 404);
         } catch (\Throwable $th) {
             Log::error("Failed to update an event: " . $th->getMessage());
-            return response(['error' => 'Failed to update an event. Please, try later.'], 500);
+            return response()->json(['error' => 'Failed to update an event. Please, try later.'], 500);
         }
     }
 
@@ -175,12 +175,12 @@ class EventController extends Controller
             $publicId = "events/$user_id/" . pathinfo($event->picture, PATHINFO_FILENAME);
             DeletePicture::dispatch($publicId);
             $event->delete();
-            return response(['message' => 'Event deleted successfully.'], 200);
+            return response()->json(['message' => 'Event deleted successfully.'], 200);
         } catch (ModelNotFoundException $e) {
-            return response(['error' => "Event with id='$id' is not found."], 404);
+            return response()->json(['error' => "Event with id='$id' is not found."], 404);
         } catch (\Throwable $th) {
             Log::error("Failed to delete an event: " . $th->getMessage());
-            return response(['error' => 'Failed to delete an event. Please, try later.'], 500);
+            return response()->json(['error' => 'Failed to delete an event. Please, try later.'], 500);
         }
     }
 
@@ -190,14 +190,14 @@ class EventController extends Controller
             $user_id = auth()->user()->id;
             $eventsCount = Event::count();
             if (!$eventsCount) {
-                return response(['error' => 'No events found.'], 404);
+                return response()->json(['error' => 'No events found.'], 404);
             }
             DeleteAllPictures::dispatch($user_id);
             Event::query()->delete();
-            return response(['message' => 'All events deleted successfully.'], 200);
+            return response()->json(['message' => 'All events deleted successfully.'], 200);
         } catch (\Throwable $th) {
             Log::error("Failed to delete all events: " . $th->getMessage());
-            return response(['error' => 'Failed to delete all events. Please, try later.'], 500);
+            return response()->json(['error' => 'Failed to delete all events. Please, try later.'], 500);
         }
     }
 }

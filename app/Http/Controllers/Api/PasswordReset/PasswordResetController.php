@@ -19,7 +19,7 @@ class PasswordResetController extends Controller
         try {
             $user = User::where('email', $request->email)->first();
             if (!$user) {
-                return response(['error' => 'User not found.'], 404);
+                return response()->json(['error' => 'User not found.'], 404);
             }
 
             $status = Password::sendResetLink(
@@ -27,11 +27,11 @@ class PasswordResetController extends Controller
             );
 
             return $status === Password::RESET_LINK_SENT
-                ? response(['message' => __($status)], 200)
-                : response(['error' => __($status)], 400);
+                ? response()->json(['message' => __($status)], 200)
+                : response()->json(['error' => __($status)], 400);
         } catch (\Throwable $th) {
             Log::error("Failed to send reset link: " . $th->getMessage());
-            return response([
+            return response()->json([
                 'error' => 'Failed to send reset link. Please try later.'
             ], 500);
         }
@@ -42,7 +42,7 @@ class PasswordResetController extends Controller
         try {
             $user = User::where('email', $request->email)->first();
             if (!$user) {
-                return response(['error' => 'User not found.'], 404);
+                return response()->json(['error' => 'User not found.'], 404);
             }
 
             $status = Password::reset(
@@ -59,11 +59,11 @@ class PasswordResetController extends Controller
             );
 
             return $status === Password::PASSWORD_RESET
-                ? response(['message' => __($status)], 200)
-                : response(['error' => __($status)], 400);
+                ? response()->json(['message' => __($status)], 200)
+                : response()->json(['error' => __($status)], 400);
         } catch (\Throwable $th) {
             Log::error("Failed to reset password: " . $th->getMessage());
-            return response([
+            return response()->json([
                 'error' => 'Failed to reset password. Please try later.'
             ], 500);
         }

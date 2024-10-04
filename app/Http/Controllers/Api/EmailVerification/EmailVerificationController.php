@@ -40,21 +40,21 @@ class EmailVerificationController extends Controller
         try {
             $user = User::where('email', $request->email)->first();
             if (!$user) {
-                return response(['error' => 'User not found.'], 404);
+                return response()->json(['error' => 'User not found.'], 404);
             }
             if (!auth()->attempt($request->only('email', 'password'))) {
-                return response([
+                return response()->json([
                     'error' => 'Email or password does not match the record.'
                 ], 401);
             }
             if (!$user->hasVerifiedEmail()) {
                 $user->sendEmailVerificationNotification();
-                return response(['message' => 'Verification link resent! Check your email.'], 200);
+                return response()->json(['message' => 'Verification link resent! Check your email.'], 200);
             }
-            return response(['error' => 'Email is already verified.'], 400);
+            return response()->json(['error' => 'Email is already verified.'], 400);
         } catch (\Throwable $th) {
             Log::error("Failed to resend verification email: " . $th->getMessage());
-            return response([
+            return response()->json([
                 'error' => 'Failed to resend verification email. Please try later.'
             ], 500);
         }

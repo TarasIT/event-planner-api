@@ -23,19 +23,19 @@ class DecodeBase64Picture
 
                 $decodedPicture = base64_decode($picture, true);
                 if ($decodedPicture === false) {
-                    return response(['error' => 'Invalid base64 encoding.'], 400);
+                    return response()->json(['error' => 'Invalid base64 encoding.'], 400);
                 }
 
                 $imageSize = strlen($decodedPicture);
                 $maxImageSize = 20 * 1024;
 
                 if ($imageSize > $maxImageSize) {
-                    return response(['error' => 'Image size should be less than 20 kB.'], 413);
+                    return response()->json(['error' => 'Image size should be less than 20 kB.'], 413);
                 }
 
                 $imageData = getimagesizefromstring($decodedPicture);
                 if ($imageData === false) {
-                    return response(['error' => 'Invalid image data.'], 400);
+                    return response()->json(['error' => 'Invalid image data.'], 400);
                 }
 
                 $mime = $imageData['mime'];
@@ -46,7 +46,7 @@ class DecodeBase64Picture
                     'image/webp' => 'webp',
                     'image/avif' => 'avif',
                     'image/svg+xml' => 'svg',
-                    default => response(['error' => 'Unsupported image extension'], 400),
+                    default => response()->json(['error' => 'Unsupported image extension'], 400),
                 };
 
                 $directory = storage_path('app/tmp/pictures');
@@ -63,7 +63,7 @@ class DecodeBase64Picture
             return $next($request);
         } catch (\Throwable $th) {
             Log::error("Failed to process picture: " . $th->getMessage());
-            return response(['error' => 'Failed to process picture'], 500);
+            return response()->json(['error' => 'Failed to process picture'], 500);
         }
     }
 }
