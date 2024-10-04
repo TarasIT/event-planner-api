@@ -25,10 +25,6 @@ class AuthController extends Controller
                 ['message' => 'Registration successful. Please check your email to verify your account.'],
                 201
             );
-        } catch (\Illuminate\Validation\ValidationException $validationException) {
-            return response()->json([
-                'errors' => $validationException->validator->errors(),
-            ], 422);
         } catch (\Throwable $th) {
             Log::error("Failed to signup: " . $th->getMessage());
             return response([
