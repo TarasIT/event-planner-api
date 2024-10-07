@@ -27,7 +27,7 @@ class EmailVerificationController extends Controller
                 ->to('http://localhost:3000/email-verification?message=' . urlencode('Email verified successfully.'));
         } catch (ModelNotFoundException $e) {
             return redirect()
-                ->to('http://localhost:3000/email-verification?message=' . urlencode("User is not found."));
+                ->to('http://localhost:3000/email-verification?message=' . urlencode("User not found."));
         } catch (\Throwable $th) {
             Log::error("Failed to verify email: " . $th->getMessage());
             return redirect()
