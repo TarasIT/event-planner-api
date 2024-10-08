@@ -1216,7 +1216,7 @@
                                     "properties": {
                                         "error": {
                                             "type": "string",
-                                            "example": "Event with id={id} is not found."
+                                            "example": "Event not found."
                                         }
                                     },
                                     "type": "object"
@@ -1308,7 +1308,7 @@
                                     "properties": {
                                         "error": {
                                             "type": "string",
-                                            "example": "Event with id={id} is not found."
+                                            "example": "Event not found."
                                         }
                                     },
                                     "type": "object"
@@ -1390,7 +1390,7 @@
                                     "properties": {
                                         "error": {
                                             "type": "string",
-                                            "example": "Event with id={id} is not found."
+                                            "example": "Event not found."
                                         }
                                     },
                                     "type": "object"

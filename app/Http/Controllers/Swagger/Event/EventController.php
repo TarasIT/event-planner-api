@@ -227,7 +227,7 @@ use App\Http\Controllers\Controller;
  *             @OA\Property(
  *                 property="error",
  *                 type="string",
- *                 example="Event with id={id} is not found."
+ *                 example="Event not found."
  *             )
  *         )
  *     ),
@@ -299,7 +299,7 @@ use App\Http\Controllers\Controller;
  *             @OA\Property(
  *                 property="error",
  *                 type="string",
- *                 example="Event with id={id} is not found."
+ *                 example="Event not found."
  *             )
  *         )
  *     ),
@@ -362,7 +362,7 @@ use App\Http\Controllers\Controller;
  *             @OA\Property(
  *                 property="error",
  *                 type="string",
- *                 example="Event with id={id} is not found."
+ *                 example="Event not found."
  *             )
  *         )
  *     ),

@@ -160,7 +160,7 @@ class EventController extends Controller
 
             return new EventResource($event);
         } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => "Event with id='$id' is not found"], 404);
+            return response()->json(['error' => "Event not found."], 404);
         } catch (\Throwable $th) {
             Log::error("Failed to update an event: " . $th->getMessage());
             return response()->json(['error' => 'Failed to update an event. Please, try later.'], 500);
@@ -177,7 +177,7 @@ class EventController extends Controller
             $event->delete();
             return response()->json(['message' => 'Event deleted successfully.'], 200);
         } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => "Event with id='$id' is not found."], 404);
+            return response()->json(['error' => "Event not found."], 404);
         } catch (\Throwable $th) {
             Log::error("Failed to delete an event: " . $th->getMessage());
             return response()->json(['error' => 'Failed to delete an event. Please, try later.'], 500);
