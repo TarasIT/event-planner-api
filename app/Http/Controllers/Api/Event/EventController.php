@@ -113,7 +113,7 @@ class EventController extends Controller
             $event = Event::findOrFail($id);
             return new EventResource($event);
         } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => "Event with id='$id' is not found."], 404);
+            return response()->json(['error' => "Event not found."], 404);
         } catch (\Throwable $th) {
             Log::error("Failed to retrieve an event: " . $th->getMessage());
             return response()->json(['error' => 'Failed to retrieve an event. Please, try later.'], 500);

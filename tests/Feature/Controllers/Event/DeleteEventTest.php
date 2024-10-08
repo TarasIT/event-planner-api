@@ -47,6 +47,6 @@ class DeleteEventTest extends TestCase
         $fakeId = $event->id + 1;
         $response = $this->deleteJson("api/events/$fakeId");
         $response->assertStatus(404);
-        $response->assertJson(['error' => "Event with id='$fakeId' is not found."]);
+        $response->assertJson(['error' => "Event not found."]);
     }
 }
