@@ -23,13 +23,13 @@ class UpdateEventRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:50',
-            'description' => 'string|max:255',
+            'description' => 'nullable|string|max:255',
             'date' => 'required|string',
             'time' => 'required|string',
-            'location' => 'string|max:50',
-            'category' => 'string|max:50',
-            'picture' => 'string',
-            'priority' => 'string|in:Low,Medium,High'
+            'location' => 'nullable|string|max:50',
+            'category' => 'nullable|string|max:50',
+            'picture' => 'nullable|string',
+            'priority' => 'nullable|string|in:Low,Medium,High',
         ];
     }
 }
