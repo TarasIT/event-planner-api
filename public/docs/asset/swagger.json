@@ -1785,7 +1785,8 @@
                     },
                     "description": {
                         "description": "Description of the event",
-                        "type": "string"
+                        "type": "string",
+                        "nullable": true
                     },
                     "date": {
                         "description": "Date of the event",
@@ -1797,11 +1798,13 @@
                     },
                     "location": {
                         "description": "Location of the event",
-                        "type": "string"
+                        "type": "string",
+                        "nullable": true
                     },
                     "category": {
                         "description": "Category of the event",
-                        "type": "string"
+                        "type": "string",
+                        "nullable": true
                     },
                     "priority": {
                         "description": "Priority of the event",
@@ -1810,11 +1813,13 @@
                             "low",
                             "medium",
                             "high"
-                        ]
+                        ],
+                        "nullable": true
                     },
                     "picture": {
                         "description": "Picture of the event",
-                        "type": "string"
+                        "type": "string",
+                        "nullable": true
                     }
                 },
                 "type": "object",

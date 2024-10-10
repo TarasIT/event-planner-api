@@ -572,6 +572,7 @@ use App\Http\Controllers\Controller;
  *     @OA\Property(
  *         property="description",
  *         type="string",
+ *         nullable=true,
  *         description="Description of the event"
  *     ),
  *     @OA\Property(
@@ -587,22 +588,26 @@ use App\Http\Controllers\Controller;
  *     @OA\Property(
  *         property="location",
  *         type="string",
+ *         nullable=true,
  *         description="Location of the event"
  *     ),
  *     @OA\Property(
  *         property="category",
  *         type="string",
+ *         nullable=true,
  *         description="Category of the event"
  *     ),
  *     @OA\Property(
  *         property="priority",
  *         type="string",
+ *         nullable=true,
  *         enum={"low", "medium", "high"},
  *         description="Priority of the event"
  *     ),
  *     @OA\Property(
  *         property="picture",
  *         type="string",
+ *         nullable=true,
  *         description="Picture of the event"
  *     ),
  *     example={
