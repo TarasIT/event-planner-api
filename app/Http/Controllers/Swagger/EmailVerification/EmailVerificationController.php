@@ -17,53 +17,16 @@ use App\Http\Controllers\Controller;
  *         description="User ID",
  *         @OA\Schema(type="integer")
  *     ),
- *     @OA\Response(
- *         response=200,
- *         description="Email verified successfully",
- *         @OA\JsonContent(
- *             type="object",
- *             @OA\Property(
- *                 property="message",
- *                 type="string",
- *                 example="Email verified successfully.",
- *             )
- *         )
+ *     @OA\Parameter(
+ *         name="signature",
+ *         in="query",
+ *         required=true,
+ *         description="Verification signature",
+ *         @OA\Schema(type="string")
  *     ),
  *     @OA\Response(
- *         response=401,
- *         description="Invalid URL provided",
- *         @OA\JsonContent(
- *             type="object",
- *             @OA\Property(
- *                 property="message",
- *                 type="string",
- *                 example="Invalid URL provided."
- *             )
- *         )
- *     ),
- *     @OA\Response(
- *         response=404,
- *         description="User not found",
- *         @OA\JsonContent(
- *             type="object",
- *             @OA\Property(
- *                 property="error",
- *                 type="string",
- *                 example="User with id={'user_id'} is not found."
- *             )
- *         )
- *     ),
- *     @OA\Response(
- *         response=500,
- *         description="Failed to verify email",
- *         @OA\JsonContent(
- *             type="object",
- *             @OA\Property(
- *                 property="error",
- *                 type="string",
- *                 example="Failed to verify email. Please try later."
- *             )
- *         )
+ *         response=302,
+ *         description="Redirect to the frontend with a message, e.g. 'Email verified successfully' or 'Invalid URL provided.'"
  *     )
  *  ),
  *  @OA\Post(
