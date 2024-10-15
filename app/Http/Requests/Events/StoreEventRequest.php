@@ -23,13 +23,13 @@ class StoreEventRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:50',
-            'description' => 'string|max:255',
+            'description' => 'nullable|string|max:255',
             'date' => 'required|string',
             'time' => 'required|string',
-            'location' => 'string|max:50',
-            'category' => 'string|max:50',
-            'picture' => 'image|mimes:jpeg,png,jpg,avif,gif,webp,svg|max:20',
-            'priority' => 'string|in:Low,Medium,High'
+            'location' => 'nullable|string|max:50',
+            'category' => 'nullable|string|max:50',
+            'picture' => 'nullable|image|mimes:jpeg,png,jpg,avif,gif,webp,svg|max:20',
+            'priority' => 'nullable|string|in:Low,Medium,High'
         ];
     }
 }
