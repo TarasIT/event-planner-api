@@ -129,6 +129,6 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'frontend_url' => env('FRONTEND_APP_URL', 'http://localhost:3000'),
+    'frontend_url' => env('FRONTEND_APP_URL', 'https://event-planner-orcin.vercel.app'),
 
 ];
