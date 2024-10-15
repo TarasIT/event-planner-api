@@ -36,7 +36,7 @@ class CustomResetPassword extends Notification
      */
     public function toMail(object $notifiable)
     {
-        $url = 'https://event-planner-orcin.vercel.app/reset-password?token=' . $this->token;
+        $url = env('FRONTEND_APP_URL') . '/reset-password?token=' . $this->token;
 
         return (new MailMessage)
             ->subject('Reset Password Notification')
