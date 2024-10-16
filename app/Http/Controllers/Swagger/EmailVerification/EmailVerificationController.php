@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 /**
  *  @OA\Get(
- *     path="/email/verify/{user_id}",
+ *     path="/email/verify/{user_id}/{hash}",
  *     tags={"Email Verification"},
  *     summary="Verifies user's email",
  *     description="Verifies the user's email address using a signed URL",

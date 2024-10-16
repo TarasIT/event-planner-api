@@ -643,14 +643,14 @@
                 }
             }
         },
-        "/email/verify/{user_id}": {
+        "/email/verify/{user_id}/{hash}": {
             "get": {
                 "tags": [
                     "Email Verification"
                 ],
                 "summary": "Verifies user's email",
                 "description": "Verifies the user's email address using a signed URL",
-                "operationId": "ddec87d538ba621599e5037dcf115e28",
+                "operationId": "1f5e37be945ed0781c38d93c60a64568",
                 "parameters": [
                     {
                         "name": "user_id",

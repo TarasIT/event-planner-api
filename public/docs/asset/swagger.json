@@ -643,7 +643,7 @@
                 }
             }
         },
-        "/email/verify/{user_id}": {
+        "/email/verify/{user_id}/{hash}": {
             "get": {
                 "tags": [
                     "Email Verification"
