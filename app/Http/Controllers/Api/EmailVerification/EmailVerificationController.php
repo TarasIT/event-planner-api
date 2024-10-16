@@ -16,7 +16,7 @@ class EmailVerificationController extends Controller
         try {
             if (!$request->hasValidSignature()) {
                 return redirect()
-                    ->to(env('FRONTEND_APP_URL') . '?message=' . urlencode('Invalid URL provided.'));
+                    ->to(env('FRONTEND_APP_URL') . "/email-verification" . '?message=' . urlencode('Invalid URL provided.'));
             }
             $user = User::findOrFail($id);
             if (!$user->hasVerifiedEmail()) {
@@ -24,14 +24,14 @@ class EmailVerificationController extends Controller
             }
 
             return redirect()
-                ->to(env('FRONTEND_APP_URL') . '?message=' . urlencode('Email verified successfully.'));
+                ->to(env('FRONTEND_APP_URL') . "/email-verification" . '?message=' . urlencode('Email verified successfully.'));
         } catch (ModelNotFoundException $e) {
             return redirect()
-                ->to(env('FRONTEND_APP_URL') . '?message=' . urlencode("User not found."));
+                ->to(env('FRONTEND_APP_URL') . "/email-verification" . '?message=' . urlencode("User not found."));
         } catch (\Throwable $th) {
             Log::error("Failed to verify email: " . $th->getMessage());
             return redirect()
-                ->to(env('FRONTEND_APP_URL') . '?message=' . urlencode('Failed to verify email. Please try later.'));
+                ->to(env('FRONTEND_APP_URL') . "/email-verification" . '?message=' . urlencode('Failed to verify email. Please try later.'));
         }
     }
 
