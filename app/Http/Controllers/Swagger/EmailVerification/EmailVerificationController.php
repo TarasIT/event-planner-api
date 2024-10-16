@@ -18,6 +18,20 @@ use App\Http\Controllers\Controller;
  *         @OA\Schema(type="integer")
  *     ),
  *     @OA\Parameter(
+ *         name="hash",
+ *         in="path",
+ *         required=true,
+ *         description="Hash",
+ *         @OA\Schema(type="string")
+ *     ),
+ *     @OA\Parameter(
+ *         name="expires",
+ *         in="query",
+ *         required=true,
+ *         description="Verification link expiration time",
+ *         @OA\Schema(type="string")
+ *     ),
+ *     @OA\Parameter(
  *         name="signature",
  *         in="query",
  *         required=true,
@@ -26,7 +40,7 @@ use App\Http\Controllers\Controller;
  *     ),
  *     @OA\Response(
  *         response=302,
- *         description="Redirect to the frontend with a message, e.g. 'Email verified successfully' or 'Invalid URL provided.'"
+ *         description="Redirect to the frontend with a message in a query, e.g. 'Email verified successfully' or 'Invalid URL provided.'"
  *     )
  *  ),
  *  @OA\Post(
