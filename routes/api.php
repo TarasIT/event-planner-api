@@ -5,7 +5,10 @@ use App\Http\Controllers\Api\Auth\GoogleAuthController;
 use App\Http\Controllers\Api\EmailVerification\EmailVerificationController;
 use App\Http\Controllers\Api\Event\EventController;
 use App\Http\Controllers\Api\PasswordReset\PasswordResetController;
+use App\Http\Controllers\Api\PingDatabase\PingDatabaseController;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/ping-database', [PingDatabaseController::class, 'ping']);
 
 Route::prefix('users/auth')->group(function () {
     Route::post('/signup', [AuthController::class, 'signup']);
