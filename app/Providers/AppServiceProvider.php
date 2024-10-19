@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(UrlGenerator $url): void
     {
-        if (env('APP_ENV') == 'production') {
+        if (config('app.env') == 'production') {
             $url->forceScheme('https');
         }
         VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
