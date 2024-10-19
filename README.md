@@ -9,7 +9,7 @@ EVENT-PLANNER-API is a Laravel-based API designed to manage events. It allows us
     -   Store and manage event pictures in Cloudinary.
 -   **Authentication**:
     -   User signup and login with email verification.
-    -   Google sign-up.
+    -   Google Auth.
     -   Password reset functionality.
 
 ## Event Fields
