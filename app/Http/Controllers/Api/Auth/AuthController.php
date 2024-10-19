@@ -10,13 +10,14 @@ use App\Http\Requests\Auth\SignupUserRequest;
 use App\Jobs\DeleteAllPictures;
 use App\Models\Event;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
-    public function signup(SignupUserRequest $request)
+    public function signup(SignupUserRequest $request): JsonResponse
     {
         try {
             $user = User::create($request->validated());
@@ -33,7 +34,7 @@ class AuthController extends Controller
         }
     }
 
-    public function login(LoginUserRequest $request)
+    public function login(LoginUserRequest $request): JsonResponse
     {
         try {
             $user = User::where('email', $request->email)->first();
@@ -55,7 +56,7 @@ class AuthController extends Controller
         }
     }
 
-    public function getUser()
+    public function getUser(): JsonResponse
     {
         try {
             $user = User::where('id', auth()->user()->id)->first();
@@ -74,7 +75,7 @@ class AuthController extends Controller
         }
     }
 
-    public function logout()
+    public function logout(): JsonResponse
     {
         try {
             auth()->user()->tokens()->delete();
@@ -89,7 +90,7 @@ class AuthController extends Controller
         }
     }
 
-    public function deleteUser()
+    public function deleteUser(): JsonResponse
     {
         try {
             $userId = auth()->user()->id;
@@ -106,7 +107,7 @@ class AuthController extends Controller
         }
     }
 
-    public function changePassword(ChangePasswordRequest $request)
+    public function changePassword(ChangePasswordRequest $request): JsonResponse
     {
         try {
             $user = Auth::user();

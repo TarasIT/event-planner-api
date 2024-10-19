@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginUserRequest;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class EmailVerificationController extends Controller
 {
-    function verify($id, Request $request)
+    function verify($id, Request $request): RedirectResponse
     {
         try {
             if (!$request->hasValidSignature()) {
@@ -35,7 +37,7 @@ class EmailVerificationController extends Controller
         }
     }
 
-    function resendEmail(LoginUserRequest $request)
+    function resendEmail(LoginUserRequest $request): JsonResponse
     {
         try {
             $user = User::where('email', $request->email)->first();

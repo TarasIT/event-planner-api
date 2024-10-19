@@ -7,6 +7,7 @@ use App\Http\Requests\ResetPassword\ResetPasswordRequest;
 use App\Http\Requests\ResetPassword\SendResetLinkRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Password;
@@ -14,7 +15,7 @@ use Illuminate\Support\Str;
 
 class PasswordResetController extends Controller
 {
-    public function sendResetPasswordLinkToEmail(SendResetLinkRequest $request)
+    public function sendResetPasswordLinkToEmail(SendResetLinkRequest $request): JsonResponse
     {
         try {
             $user = User::where('email', $request->email)->first();
@@ -37,7 +38,7 @@ class PasswordResetController extends Controller
         }
     }
 
-    public function reset(ResetPasswordRequest $request)
+    public function reset(ResetPasswordRequest $request): JsonResponse
     {
         try {
             $user = User::where('email', $request->email)->first();

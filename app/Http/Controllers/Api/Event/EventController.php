@@ -11,12 +11,13 @@ use App\Jobs\DeletePicture;
 use App\Models\Event;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class EventController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         try {
             $eventsCount = Event::count();
@@ -47,6 +48,7 @@ class EventController extends Controller
                         ->orWhere('priority', 'like', "%$search%");
                 });
             }
+
             if ($category && $category !== "all") {
                 $events->where('category', $category);
             }
@@ -78,7 +80,7 @@ class EventController extends Controller
         }
     }
 
-    public function store(StoreEventRequest $request)
+    public function store(StoreEventRequest $request): JsonResponse
     {
         try {
             $user_id = auth()->user()->id;
@@ -107,7 +109,7 @@ class EventController extends Controller
         }
     }
 
-    public function show($id)
+    public function show($id): JsonResponse
     {
         try {
             $event = Event::findOrFail($id);
@@ -120,7 +122,7 @@ class EventController extends Controller
         }
     }
 
-    public function update(UpdateEventRequest $request, $id)
+    public function update(UpdateEventRequest $request, $id): JsonResponse
     {
         try {
             $user_id = auth()->user()->id;
@@ -167,7 +169,7 @@ class EventController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
         try {
             $user_id = auth()->user()->id;
@@ -184,7 +186,7 @@ class EventController extends Controller
         }
     }
 
-    public function destroyAll()
+    public function destroyAll(): JsonResponse
     {
         try {
             $user_id = auth()->user()->id;
