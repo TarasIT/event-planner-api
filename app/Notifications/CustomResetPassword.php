@@ -34,9 +34,9 @@ class CustomResetPassword extends Notification
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable)
+    public function toMail(object $notifiable): MailMessage
     {
-        $url = env('FRONTEND_APP_URL') . '/reset-password?token=' . $this->token;
+        $url = config('app.frontend_url') . '/reset-password?token=' . $this->token;
 
         return (new MailMessage)
             ->subject('Reset Password Notification')
