@@ -1,6 +1,6 @@
 # Event Planner API
 
-EVENT-PLANNER-API is a Laravel-based API designed to manage events. It allows users to create, read, update, and delete events, as well as manage event pictures via the Cloudinary service. Additionally, the API provides authentication features, including email verification and Google sign-up, utilizing Laravel Sanctum. Also the API implements reset password feature.
+EVENT-PLANNER-API is a Laravel-based API designed to manage events. It allows users to create, read, update, and delete events, as well as manage event pictures via the Cloudinary service. Additionally, the API provides authentication features, including email verification and Google Auth, utilizing Laravel Sanctum. Also the API implements reset password feature.
 
 ## Features
 
@@ -38,7 +38,6 @@ The API manages the following event fields:
 
     ```sh
     composer install
-    npm install
     ```
 
 3. Set up the environment variables:
@@ -65,27 +64,6 @@ The API manages the following event fields:
     ```sh
     php artisan serve
     ```
-
-## Docker
-
-If you prefer using docker, follow this steps:
-
-1. Clone the Repository:
-
-    ```sh
-    https://github.com/TarasIT/event-planner-api.git
-    cd event-planner-api
-    ```
-
-2. After ensuring you are on the `main` branch Build and Run the Containers:
-
-    ```sh
-    docker compose up --build -d
-    ```
-
-3. Access the Application:
-
-    Open your browser and navigate to 'http://localhost:8000' to access the Laravel API.
 
 ## Contributing
 
