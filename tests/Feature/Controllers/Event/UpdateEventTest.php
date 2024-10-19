@@ -47,7 +47,9 @@ class UpdateEventTest extends TestCase
 
         $data = [
             'title' => 'Updated title',
-            'picture' => $picture['base64-picture-3.7KB'],
+            'date' => now()->toDateString(),
+            'time' => now()->toTimeString(),
+            'picture' => $picture['base64-picture-3.7KB']
         ];
 
         $response = $this->putJson("/api/events/$event->id", $data);
@@ -68,6 +70,8 @@ class UpdateEventTest extends TestCase
 
         $data = [
             'title' => 123,
+            'date' => now()->toDateString(),
+            'time' => now()->toTimeString()
         ];
 
         $response = $this->putJson("/api/events/$event->id", $data);

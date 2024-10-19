@@ -31,7 +31,7 @@ class DeleteUserTest extends TestCase
 
         $response = $this->deleteJson('/api/users/current');
         $response->assertStatus(200);
-        $response->assertJson(['message' => 'Your profile and all events deleted successfully.']);
+        $response->assertJson(['message' => 'Your profile deleted successfully.']);
 
         $this->assertDatabaseMissing('users', [
             'email' => $user->email,

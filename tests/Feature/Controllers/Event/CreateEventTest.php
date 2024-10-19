@@ -43,7 +43,7 @@ class CreateEventTest extends TestCase
             'location' => 'Test location',
             'category' => 'Test category',
             'picture' => UploadedFile::fake()->image('event.jpg'),
-            'priority' => 'high'
+            'priority' => 'High'
         ];
 
         $response = $this->postJson('/api/events', $event);

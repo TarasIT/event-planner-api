@@ -25,8 +25,7 @@ class VerifyEmailTest extends TestCase
 
         $this->assertNotNull($user->email_verified_at);
         $response->assertStatus(302);
-        $response->assertRedirect('/'); //should redirect to !frontend! login page
-        $response->assertSessionHas('message', 'Email verified successfully.');
+        $response->assertRedirect('https://event-planner-orcin.vercel.app/email-verification?message=Email+verified+successfully.');
     }
 
     public function test_verify_email_failure_if_invalid_signature()
@@ -37,8 +36,8 @@ class VerifyEmailTest extends TestCase
 
         $response = $this->get($url);
 
-        $response->assertStatus(401);
-        $response->assertJson(['messsage' => 'Invalid URL provided.']);
+        $response->assertStatus(302);
+        $response->assertRedirect('https://event-planner-orcin.vercel.app/email-verification?message=Invalid+URL+provided.');
     }
 
     public function test_verify_email_failure_if_user_not_found()
@@ -49,7 +48,7 @@ class VerifyEmailTest extends TestCase
 
         $response = $this->get($url);
 
-        $response->assertStatus(404);
-        $response->assertJson(['error' => "User with id='$invalidUserId' is not found."]);
+        $response->assertStatus(302);
+        $response->assertRedirect('https://event-planner-orcin.vercel.app/email-verification?message=User+not+found.');
     }
 }

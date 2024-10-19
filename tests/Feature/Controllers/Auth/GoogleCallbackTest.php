@@ -38,7 +38,7 @@ class GoogleCallbackTest extends TestCase
             'name' => 'Test User',
             'email' => 'test@example.com'
         ]);
-        $response->assertStatus(200);
+        $response->assertStatus(302);
     }
 
     public function test_google_callback_succesfull_if_existed_user_updated()
@@ -68,7 +68,7 @@ class GoogleCallbackTest extends TestCase
             'name' => 'New Name',
             'email' => 'new@example.com'
         ]);
-        $response->assertStatus(200);
+        $response->assertStatus(302);
     }
 
     public function test_google_callback_failure_if_exception_occured()
