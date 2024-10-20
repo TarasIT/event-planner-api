@@ -13,11 +13,12 @@ use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Facades\Log;
 
 class EventController extends Controller
 {
-    public function index(Request $request): JsonResponse
+    public function index(Request $request): JsonResponse | ResourceCollection
     {
         try {
             $eventsCount = Event::count();
@@ -80,7 +81,7 @@ class EventController extends Controller
         }
     }
 
-    public function store(StoreEventRequest $request): JsonResponse
+    public function store(StoreEventRequest $request): JsonResponse | EventResource
     {
         try {
             $user_id = auth()->user()->id;
@@ -109,7 +110,7 @@ class EventController extends Controller
         }
     }
 
-    public function show($id): JsonResponse
+    public function show($id): JsonResponse | EventResource
     {
         try {
             $event = Event::findOrFail($id);
@@ -122,7 +123,7 @@ class EventController extends Controller
         }
     }
 
-    public function update(UpdateEventRequest $request, $id): JsonResponse
+    public function update(UpdateEventRequest $request, $id): JsonResponse | EventResource
     {
         try {
             $user_id = auth()->user()->id;

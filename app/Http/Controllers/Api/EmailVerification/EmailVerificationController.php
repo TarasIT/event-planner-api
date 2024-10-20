@@ -9,31 +9,36 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Log;
 
 class EmailVerificationController extends Controller
 {
-    function verify($id, Request $request): RedirectResponse
+    function verify($id, Request $request): RedirectResponse | Redirector
     {
         try {
             if (!$request->hasValidSignature()) {
-                return redirect()
-                    ->to(config('app.frontend_url') . "/email-verification" . '?message=' . urlencode('Invalid URL provided.'));
+                return redirect(
+                    config('app.frontend_url') . "/email-verification" . '?message=' . urlencode('Invalid URL provided.')
+                );
             }
             $user = User::findOrFail($id);
             if (!$user->hasVerifiedEmail()) {
                 $user->markEmailAsVerified();
             }
 
-            return redirect()
-                ->to(config('app.frontend_url') . "/email-verification" . '?message=' . urlencode('Email verified successfully.'));
+            return redirect(
+                config('app.frontend_url') . "/email-verification" . '?message=' . urlencode('Email verified successfully.')
+            );
         } catch (ModelNotFoundException $e) {
-            return redirect()
-                ->to(config('app.frontend_url') . "/email-verification" . '?message=' . urlencode("User not found."));
+            return redirect(
+                config('app.frontend_url') . "/email-verification" . '?message=' . urlencode("User not found.")
+            );
         } catch (\Throwable $th) {
             Log::error("Failed to verify email: " . $th->getMessage());
-            return redirect()
-                ->to(config('app.frontend_url') . "/email-verification" . '?message=' . urlencode('Failed to verify email. Please try later.'));
+            return redirect(
+                config('app.frontend_url') . "/email-verification" . '?message=' . urlencode('Failed to verify email. Please try later.')
+            );
         }
     }
 
