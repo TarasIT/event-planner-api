@@ -103,6 +103,9 @@ class EventController extends Controller
                     ...$request->validated()
                 ]);
             }
+            if (!Event::where('id', $created_event->id)->exists()) {
+                throw new \Exception('Event is not present in the list.');
+            }
             return new EventResource($created_event);
         } catch (\Throwable $th) {
             Log::error("Failed to create an event: " . $th->getMessage());
@@ -178,6 +181,9 @@ class EventController extends Controller
             $publicId = "events/$user_id/" . pathinfo($event->picture, PATHINFO_FILENAME);
             DeletePicture::dispatch($publicId);
             $event->delete();
+            if (Event::where("id", $id)->exists()) {
+                throw new \Exception('Event is still present in the list.');
+            }
             return response()->json(['message' => 'Event deleted successfully.'], 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => "Event not found."], 404);
