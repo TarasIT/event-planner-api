@@ -203,6 +203,9 @@ class EventController extends Controller
             }
             DeleteAllPictures::dispatch($user_id);
             Event::query()->delete();
+            if (Event::count() > 0) {
+                throw new \Exception('Some events could not be deleted.');
+            }
             return response()->json(['message' => 'All events deleted successfully.'], 200);
         } catch (\Throwable $th) {
             Log::error("Failed to delete all events: " . $th->getMessage());
