@@ -6,6 +6,7 @@ EVENT-PLANNER-API is a Laravel-based API designed to manage events. It allows us
 
 -   **Event Management**:
     -   Create, read, update, and delete events.
+    -   Search, sort and filter events.
     -   Store and manage event pictures in Cloudinary.
 -   **Authentication**:
     -   User signup and login with email verification.
@@ -24,6 +25,21 @@ The API manages the following event fields:
 -   `category`
 -   `picture`
 -   `priority`
+
+## Technologies
+
+The API uses the next techologies:
+
+-   **PHP**:
+    -   A popular server-side scripting language that powers the backend.
+-   **Laravel**:
+    -   A PHP framework designed for web applications, providing a range of features for efficient development.
+-   **MySQL**:
+    -   The database used for storing and managing data securely.
+-   **Feature Tests (PHPUnit)**:
+    -   Comprehensive feature tests using PHPUnit, covering end-to-end functionality of the API.
+-   **Swagger**:
+    -   A tool for API documentation, making it easier to understand and interact with the API.
 
 ## Installation
 
