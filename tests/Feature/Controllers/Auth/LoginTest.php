@@ -36,6 +36,26 @@ class LoginTest extends TestCase
         $this->assertNotEmpty($responseData['token']);
     }
 
+    public function test_login_failure_if_user_authenticated_with_google_and_no_password_provided()
+    {
+        User::factory()->create([
+            'email' => 'john.doe@example.com',
+            'google_id' => 'some_google_id',
+            'password' => null
+        ]);
+        $this->assertDatabaseHas('users', [
+            'email' => 'john.doe@example.com',
+            'google_id' => 'some_google_id',
+            'password' => null
+        ]);
+        $response = $this->postJson('/api/users/auth/login', [
+            'email' => 'john.doe@example.com',
+            'password' => 'inexistentPassword',
+        ]);
+        $response->assertStatus(400);
+        $response->assertJson(['error' => "This account was registered with Google. Please authenticate with Google or click 'Forgot password?' link to set a password."]);
+    }
+
     public function test_login_failure_if_email_is_not_verified()
     {
         User::factory()->create(array_merge($this->data, ['email_verified_at' => null]));

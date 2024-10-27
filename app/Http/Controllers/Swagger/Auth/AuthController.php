@@ -105,6 +105,18 @@ use App\Http\Controllers\Controller;
  *          )
  *      ),
  *      @OA\Response(
+ *          response=400,
+ *          description="Log in failed because user already registered with Google and do not have a password.",
+ *          @OA\JsonContent(
+ *              type="object",
+ *              @OA\Property(
+ *                  property="error",
+ *                  type="string",
+ *                  example="This account was registered with Google. Please authenticate with Google or click 'Forgot password?' link to set a password.",
+ *              )
+ *          )
+ *      ),
+ *      @OA\Response(
  *          response=401,
  *          description="Wrong credentials",
  *          @OA\JsonContent(

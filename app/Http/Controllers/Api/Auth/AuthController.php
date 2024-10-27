@@ -41,6 +41,11 @@ class AuthController extends Controller
             if (!$user) {
                 return response()->json(['error' => 'User not found.'], 404);
             }
+            if ($user->google_id && !$user->password) {
+                return response()->json([
+                    'error' => "This account was registered with Google. Please authenticate with Google or click 'Forgot password?' link to set a password."
+                ], 400);
+            }
             if (!auth()->attempt($request->only(['email', 'password']))) {
                 return response()->json([
                     'error' => 'Email or password does not match the record.'
