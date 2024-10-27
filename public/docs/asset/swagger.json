@@ -151,6 +151,22 @@
                             }
                         }
                     },
+                    "400": {
+                        "description": "Log in failed because user already registered with Google and do not have a password.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "This account was registered with Google. Please authenticate with Google or click 'Forgot password?' link to set a password."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
                     "401": {
                         "description": "Wrong credentials",
                         "content": {
@@ -650,7 +666,7 @@
                 ],
                 "summary": "Verifies user's email",
                 "description": "Verifies the user's email address using a signed URL",
-                "operationId": "ddec87d538ba621599e5037dcf115e28",
+                "operationId": "1f5e37be945ed0781c38d93c60a64568",
                 "parameters": [
                     {
                         "name": "user_id",

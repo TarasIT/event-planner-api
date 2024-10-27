@@ -151,6 +151,22 @@
                             }
                         }
                     },
+                    "400": {
+                        "description": "Log in failed because user already registered with Google and do not have a password.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "This account was registered with Google. Please authenticate with Google or click 'Forgot password?' link to set a password."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
                     "401": {
                         "description": "Wrong credentials",
                         "content": {
