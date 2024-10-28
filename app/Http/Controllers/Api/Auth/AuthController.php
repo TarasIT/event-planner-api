@@ -83,7 +83,7 @@ class AuthController extends Controller
     public function logout(): JsonResponse
     {
         try {
-            auth()->user()->tokens()->delete();
+            auth()->user()->currentAccessToken()->delete();
             return response()->json([
                 'message' => 'Logged out successfully.'
             ], 200);
